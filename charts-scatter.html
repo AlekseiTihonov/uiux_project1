@@ -16,11 +16,10 @@
         box-shadow: var(--shadow-sm);
       }
 
-      .axis-label {
-        font-size: var(--fs-small);
-        fill: var(--color-text);
-        text-anchor: middle;
-      }
+      #scatter-chart-container text { font-family: "Georgia", serif; }
+      .dot { fill: var(--color-secondary); opacity: 0.7; transition: fill 0.2s; }
+      .dot.selected { fill: var(--color-primary); opacity: 1; stroke: #333; stroke-width: 1px; }
+      .dot.unselected { fill: var(--color-muted); opacity: 0.3; }
     </style>
   </head>
 
@@ -84,7 +83,7 @@
 
           <!-- Example Scatter Plot -->
           <section class="card" style="margin-top: var(--space-8)">
-            <h3>Example: GDP (Trillion USD) vs. CO₂ Emissions (MT)</h3>
+            <h3>Example: Ticket Price ($) vs. Customer Rating (1-10)</h3>
             <div id="scatter-chart-container"></div>
           </section>
 
@@ -127,12 +126,10 @@
 
     <script>
       const scatterData = [
-        { gdp: 20, emissions: 300 },
-        { gdp: 45, emissions: 500 },
-        { gdp: 15, emissions: 150 },
-        { gdp: 30, emissions: 400 },
-        { gdp: 55, emissions: 600 },
-        { gdp: 8, emissions: 90 },
+        { price: 120, rating: 8.5 }, { price: 450, rating: 9.0 },
+        { price: 150, rating: 7.2 }, { price: 300, rating: 8.8 },
+        { price: 550, rating: 9.5 }, { price: 80, rating: 6.0 },
+        { price: 200, rating: 7.5 }, { price: 600, rating: 9.8 }
       ];
 
       const margin = { top: 40, right: 20, bottom: 50, left: 60 };
@@ -144,32 +141,38 @@
         .append("svg")
         .attr("width", "100%")
         .attr("height", "100%")
-        .attr(
-          "viewBox",
-          `0 0 ${width + margin.left + margin.right} ${
-            height + margin.top + margin.bottom
-          }`
-        )
+        .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
-      const xScale = d3.scaleLinear().domain([0, 60]).range([0, width]);
-      const yScale = d3.scaleLinear().domain([0, 650]).range([height, 0]);
+      const xScale = d3
+        .scaleLinear()
+        .domain([0, 700])
+        .range([0, width]);
+
+      const yScale = d3
+        .scaleLinear()
+        .domain([0, 10])
+        .range([height, 0]);
 
       svg
         .append("g")
         .attr("transform", `translate(0,${height})`)
         .call(d3.axisBottom(xScale));
+      
+      svg
+        .append("g")
+        .call(d3.axisLeft(yScale));
 
-      svg.append("g").call(d3.axisLeft(yScale));
-
-      // Axis labels
+      // Labels
       svg
         .append("text")
         .attr("class", "axis-label")
         .attr("x", width / 2)
         .attr("y", height + 40)
-        .text("GDP (Trillion USD)");
+        .text("Ticket Price ($)")
+        .style("text-anchor", "middle")
+        .style("font-family", "Georgia");
 
       svg
         .append("text")
@@ -177,18 +180,49 @@
         .attr("transform", "rotate(-90)")
         .attr("x", -height / 2)
         .attr("y", -40)
-        .text("CO₂ Emissions (MT)");
+        .text("Customer Rating")
+        .style("text-anchor", "middle")
+        .style("font-family", "Georgia");
 
-      // Points
-      svg
+      const circles = svg
         .selectAll("circle")
         .data(scatterData)
         .enter()
         .append("circle")
-        .attr("cx", (d) => xScale(d.gdp))
-        .attr("cy", (d) => yScale(d.emissions))
-        .attr("r", 7)
-        .style("fill", "var(--color-secondary)");
+        .attr("class", "dot")
+        .attr("cx", (d) => xScale(d.price))
+        .attr("cy", (d) => yScale(d.rating))
+        .attr("r", 7);
+
+      // --- BRUSHING ---
+      const brush = d3
+        .brush()
+        .extent([[0, 0], [width, height]])
+        .on("start brush end", brushed);
+
+      svg
+        .append("g")
+        .attr("class", "brush")
+        .call(brush);
+
+      function brushed({selection}) {
+        if (!selection) {
+          circles.classed("selected", false).classed("unselected", false);
+          return;
+        }
+        const [[x0, y0], [x1, y1]] = selection;
+        circles
+          .classed("selected", d => {
+            const cx = xScale(d.price);
+            const cy = yScale(d.rating);
+            return cx >= x0 && cx <= x1 && cy >= y0 && cy <= y1;
+          })
+          .classed("unselected", d => {
+            const cx = xScale(d.price);
+            const cy = yScale(d.rating);
+            return !(cx >= x0 && cx <= x1 && cy >= y0 && cy <= y1);
+          });
+      }
     </script>
   </body>
 </html>

@@ -16,6 +16,7 @@
         display: flex;
         justify-content: center;
       }
+      #pie-chart-container text { font-family: "Georgia", serif; }
     </style>
   </head>
 
@@ -80,7 +81,7 @@
 
           <!-- Chart Example -->
           <section class="card" style="margin-top: var(--space-8)">
-            <h3>Example: Sources of Plastic Waste</h3>
+            <h3>Example: Incoming Tickets by Reason</h3>
             <div id="pie-chart-container"></div>
           </section>
 
@@ -123,16 +124,15 @@
     <!-- PIE CHART SCRIPT -->
     <script>
       const pieData = [
-        { source: "Packaging", percent: 42 },
-        { source: "Textiles", percent: 15 },
-        { source: "Electronics", percent: 20 },
-        { source: "Other", percent: 23 },
+        { source: "Baggage", percent: 35 },
+        { source: "Booking", percent: 25 },
+        { source: "Refunds", percent: 20 },
+        { source: "Info", percent: 20 },
       ];
 
-      const width = 450,
-        height = 450,
-        margin = 40;
-
+      const width = 450;
+      const height = 450;
+      const margin = 40;
       const radius = Math.min(width, height) / 2 - margin;
 
       const svg = d3
@@ -146,12 +146,7 @@
       const color = d3
         .scaleOrdinal()
         .domain(pieData.map((d) => d.source))
-        .range([
-          "var(--color-primary)",
-          "var(--color-secondary)",
-          "var(--color-warning)",
-          "var(--color-accent)",
-        ]);
+        .range(["var(--color-primary)", "var(--color-secondary)", "var(--color-warning)", "var(--color-accent)"]);
 
       const pie = d3
         .pie()
@@ -159,10 +154,10 @@
         .sort(null);
 
       const data_ready = pie(pieData);
-
+      
       const arc = d3
         .arc()
-        .innerRadius(radius * 0.45) // Donut chart
+        .innerRadius(radius * 0.45)
         .outerRadius(radius);
 
       svg

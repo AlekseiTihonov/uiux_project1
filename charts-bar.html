@@ -6,6 +6,9 @@
     <title>Bar Charts</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+      #bar-chart-container text { font-family: "Georgia", serif; }
+    </style>
   </head>
 
   <body>
@@ -59,15 +62,12 @@
           <!-- Intro -->
           <section class="card">
             <h2 style="margin-top: 0">Bar Chart</h2>
-            <p class="lead">
-              Bar charts visually compare values across categories by using
-              vertical or horizontal bars.
-            </p>
+            <p class="lead">Bar charts are effective for comparing categories.</p>
           </section>
 
           <!-- Chart Template -->
           <section class="card" style="margin-top: var(--space-8)">
-            <h3>Bar Chart Template</h3>
+            <h3>Positive Feedback Count (Last Month)</h3>
             <div id="bar-chart-container"></div>
           </section>
 
@@ -96,10 +96,10 @@
     <!-- Chart Script -->
     <script>
       const barData = [
-        { source: "Solar", output: 120 },
-        { source: "Wind", output: 180 },
-        { source: "Hydro", output: 250 },
-        { source: "Geo", output: 45 },
+        { source: "Service", output: 450 },
+        { source: "Punctuality", output: 320 },
+        { source: "Comfort", output: 210 },
+        { source: "Food", output: 180 },
       ];
 
       const margin = { top: 20, right: 20, bottom: 40, left: 50 };
@@ -111,12 +111,7 @@
         .append("svg")
         .attr("width", "100%")
         .attr("height", "100%")
-        .attr(
-          "viewBox",
-          `0 0 ${width + margin.left + margin.right} ${
-            height + margin.top + margin.bottom
-          }`
-        )
+        .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
@@ -133,10 +128,12 @@
 
       const yScale = d3
         .scaleLinear()
-        .domain([0, d3.max(barData, (d) => d.output)])
+        .domain([0, 500])
         .range([height, 0]);
 
-      svg.append("g").call(d3.axisLeft(yScale));
+      svg
+        .append("g")
+        .call(d3.axisLeft(yScale));
 
       svg
         .selectAll("rect")

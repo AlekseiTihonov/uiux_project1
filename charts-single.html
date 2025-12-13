@@ -3,8 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Single Value Charts – Ecovision Design System</title>
+    <title>KPI Charts – CanJet Dashboard</title>
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      .kpi-value { font-family: "Georgia", serif; }
+    </style>
   </head>
 
   <body>
@@ -57,40 +60,27 @@
 
       <div class="ds-main-content">
         <main class="container">
-          <!-- Page Intro -->
           <section class="card">
             <h2 style="margin-top: 0">Single Value (KPI) Charts</h2>
-            <p class="lead">
-              Highlight key metrics for at-a-glance understanding.
-            </p>
+            <p class="lead">Highlight key metrics for at-a-glance understanding.</p>
           </section>
 
           <!-- KPI Example -->
           <section style="margin-top: var(--space-8)">
-            <h3>Example: KPI Display</h3>
-            <div
-              class="card"
-              style="text-align: center; padding: var(--space-8)"
-            >
-              <h3
-                style="
-                  margin: 0;
-                  color: var(--color-muted);
-                  font-size: var(--fs-h3);
-                "
-              >
-                Active Users Online
+            <h3>Example: Net Promoter Score (NPS)</h3>
+            <div class="card" style="text-align: center; padding: var(--space-8)">
+              <h3 style="margin: 0; color: var(--color-muted); font-size: var(--fs-h3);">
+                Current NPS Score
               </h3>
-              <p
-                style="
+              <p class="kpi-value" style="
                   font-size: var(--fs-display);
                   font-weight: var(--font-weight-bold);
                   color: var(--color-primary);
                   margin: var(--space-2) 0 0 0;
-                "
-              >
-                1,432
+                ">
+                +48
               </p>
+              <p style="margin: 0; color: var(--color-muted); font-size: var(--fs-small);">Top 5% in Industry</p>
             </div>
           </section>
 

@@ -15,6 +15,7 @@
         border-radius: var(--radius-lg);
         box-shadow: var(--shadow-sm);
       }
+      #line-chart-container text, #area-chart-container text { font-family: "Georgia", serif; }
     </style>
   </head>
 
@@ -79,7 +80,7 @@
 
           <!-- Line Chart -->
           <section class="card" style="margin-top: var(--space-8)">
-            <h3>Example: Global CO₂ Concentration (ppm)</h3>
+            <h3>Example: Customer Happiness Index (Yearly)</h3>
             <div id="line-chart-container"></div>
           </section>
 
@@ -119,28 +120,23 @@
     <!-- LINE CHART SCRIPT -->
     <script>
       const lineData = [
-        { year: new Date("2000-01-01"), ppm: 369 },
-        { year: new Date("2005-01-01"), ppm: 379 },
-        { year: new Date("2010-01-01"), ppm: 389 },
-        { year: new Date("2015-01-01"), ppm: 400 },
-        { year: new Date("2020-01-01"), ppm: 414 },
+        { year: new Date("2020-01-01"), score: 70 },
+        { year: new Date("2021-01-01"), score: 75 },
+        { year: new Date("2022-01-01"), score: 72 },
+        { year: new Date("2023-01-01"), score: 85 },
+        { year: new Date("2024-01-01"), score: 92 },
       ];
 
-      const margin = { top: 20, right: 20, bottom: 50, left: 50 },
-        width = 600 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+      const margin = { top: 20, right: 20, bottom: 50, left: 50 };
+      const width = 600 - margin.left - margin.right;
+      const height = 400 - margin.top - margin.bottom;
 
       const svgLine = d3
         .select("#line-chart-container")
         .append("svg")
         .attr("width", "100%")
         .attr("height", "100%")
-        .attr(
-          "viewBox",
-          `0 0 ${width + margin.left + margin.right} ${
-            height + margin.top + margin.bottom
-          }`
-        )
+        .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
@@ -156,76 +152,25 @@
 
       const yScale = d3
         .scaleLinear()
-        .domain([360, d3.max(lineData, (d) => d.ppm)])
+        .domain([60, 100])
         .range([height, 0]);
 
-      svgLine.append("g").call(d3.axisLeft(yScale));
+      svgLine
+        .append("g")
+        .call(d3.axisLeft(yScale));
 
       const line = d3
         .line()
         .x((d) => xScale(d.year))
-        .y((d) => yScale(d.ppm));
+        .y((d) => yScale(d.score));
 
       svgLine
         .append("path")
         .datum(lineData)
         .attr("fill", "none")
-        .attr("stroke", "var(--color-danger)")
+        .attr("stroke", "var(--color-primary)")
         .attr("stroke-width", 3)
         .attr("d", line);
-    </script>
-
-    <!-- AREA CHART SCRIPT -->
-    <script>
-      const areaData = [
-        { year: 2000, level: 30 },
-        { year: 2005, level: 45 },
-        { year: 2010, level: 60 },
-        { year: 2015, level: 82 },
-        { year: 2020, level: 95 },
-      ];
-
-      const svgArea = d3
-        .select("#area-chart-container")
-        .append("svg")
-        .attr("width", "100%")
-        .attr("height", "100%")
-        .attr(
-          "viewBox",
-          `0 0 ${width + margin.left + margin.right} ${
-            height + margin.top + margin.bottom
-          }`
-        )
-        .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
-
-      const xArea = d3.scaleLinear().domain([2000, 2020]).range([0, width]);
-
-      svgArea
-        .append("g")
-        .attr("transform", `translate(0, ${height})`)
-        .call(d3.axisBottom(xArea).ticks(5));
-
-      const yArea = d3
-        .scaleLinear()
-        .domain([0, d3.max(areaData, (d) => d.level)])
-        .range([height, 0]);
-
-      svgArea.append("g").call(d3.axisLeft(yArea));
-
-      const area = d3
-        .area()
-        .x((d) => xArea(d.year))
-        .y0(height)
-        .y1((d) => yArea(d.level));
-
-      svgArea
-        .append("path")
-        .datum(areaData)
-        .attr("fill", "var(--color-primary-light)")
-        .attr("stroke", "var(--color-primary)")
-        .attr("stroke-width", 2)
-        .attr("d", area);
     </script>
   </body>
 </html>
