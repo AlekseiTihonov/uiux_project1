@@ -1,0 +1,283 @@
+:root {
+  /* Brand (CanJet Red Triad 적용) */
+  --color-primary: #ed1c24;
+  --color-secondary: #f54748;
+  --color-accent: #f56f6c;
+
+  /* Semantic */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+
+  /* Neutrals */
+  --color-surface: #ffffff;
+  --color-background: #f9faf9;
+  --color-muted: #94a3b8;
+  --color-text: #1e293b;
+  --color-border: #e2e8f0;
+
+  /* Typography */
+  --font-family-sans: "Poppins", system-ui, -apple-system, Segoe UI, Roboto,
+    Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji",
+    "Segoe UI Emoji";
+
+  /* Serif for Titles — CanJet Requirement */
+  --font-serif: "Georgia", serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Type Scale */
+  --fs-display: clamp(2.25rem, 2.5vw + 1.5rem, 3rem);
+  --fs-h1: clamp(1.75rem, 1.5vw + 1.25rem, 2.375rem);
+  --fs-h2: clamp(1.5rem, 1.2vw + 1rem, 1.875rem);
+  --fs-h3: clamp(1.25rem, 0.8vw + 0.9rem, 1.5rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-label: 0.8125rem;
+
+  /* Layout */
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  /* Effects */
+  --shadow-sm: 0 1px 2px rgba(2, 6, 23, 0.06);
+  --shadow-md: 0 8px 24px rgba(2, 6, 23, 0.08);
+  --shadow-lg: 0 20px 40px rgba(2, 6, 23, 0.12);
+}
+
+/* Base */
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: var(--font-family-sans);
+  color: var(--color-text);
+  background: var(--color-background);
+  line-height: 1.6;
+  font-size: var(--fs-body);
+}
+
+/* ===================================================
+   LAYOUT
+   =================================================== */
+
+.ds-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.ds-sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  background: var(--color-surface);
+  padding: var(--space-6) var(--space-4);
+  border-right: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.ds-main-content {
+  flex-grow: 1;
+  padding-top: 0;
+}
+
+/* ===================================================
+   HEADER
+   =================================================== */
+
+.header {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4) 0;
+}
+
+.header .container {
+  max-width: none;
+  padding: 0 var(--space-6);
+}
+
+/* Brand (Logo + Title) */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.brand-logo {
+  height: 50px;
+  width: auto;
+  display: block;
+}
+
+.brand__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(237, 28, 36, 0.25);
+}
+
+.site-title {
+  margin: 0;
+  font-size: var(--fs-h2);
+  letter-spacing: -0.3px;
+}
+
+/* ===================================================
+   SIDEBAR NAV
+   =================================================== */
+
+.ds-sidebar nav h3 {
+  font-size: var(--fs-h3);
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-2);
+  color: var(--color-primary);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-2);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ds-sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ds-sidebar nav ul a {
+  display: block;
+  padding: var(--space-2) var(--space-1);
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: var(--fs-small);
+  border-radius: var(--radius-sm);
+  transition: background 0.1s;
+}
+
+.ds-sidebar nav ul a[aria-current="page"] {
+  background: var(--color-primary);
+  color: var(--color-surface);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-sidebar nav ul a:hover:not([aria-current="page"]) {
+  background: var(--color-background);
+  color: var(--color-primary);
+}
+
+/* ===================================================
+   CONTENT
+   =================================================== */
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6);
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+footer {
+  margin-top: var(--space-10);
+  padding: var(--space-6) 0;
+  color: var(--color-muted);
+  border-top: 1px solid var(--color-border);
+}
+
+/* ===================================================
+   GRID SYSTEM
+   =================================================== */
+
+.grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.grid.cols-1 {
+  grid-template-columns: 1fr;
+}
+.grid.cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.grid.cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.grid.cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+.grid.cols-asym {
+  grid-template-columns: 2fr 1fr;
+}
+.grid.cols-1-2 {
+  grid-template-columns: 1fr 2fr;
+}
+
+/* ===================================================
+   GLOBAL SERIF OVERRIDES
+   =================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.card h1,
+.card h2,
+.card h3,
+.card h4 {
+  font-family: var(--font-serif) !important;
+  font-weight: var(--font-weight-semibold);
+}
+
+.ds-sidebar nav h3,
+.ds-sidebar nav ul a {
+  font-family: var(--font-serif) !important;
+}
+
+/* ===================================================
+   RESPONSIVE
+   =================================================== */
+
+@media (max-width: 768px) {
+  .ds-layout {
+    flex-direction: column;
+  }
+
+  .ds-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .grid.cols-2,
+  .grid.cols-3,
+  .grid.cols-4,
+  .grid.cols-asym,
+  .grid.cols-1-2 {
+    grid-template-columns: 1fr;
+  }
+}

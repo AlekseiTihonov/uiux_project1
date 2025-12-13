@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Line & Area Charts – Ecovision Design System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <style>
+      #line-chart-container,
+      #area-chart-container {
+        padding: var(--space-6);
+        background: var(--color-surface);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-sm);
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="brand">
+          <span class="brand__dot" aria-hidden="true"></span>
+          <h1 class="site-title">Line & Area Charts</h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="ds-layout">
+      <aside class="ds-sidebar">
+        <nav aria-label="Design System Sections">
+          <h3>Foundation</h3>
+          <ul>
+            <li><a href="index.html">Overview </a></li>
+            <li><a href="colors.html">Colors </a></li>
+            <li><a href="typography.html">Typography </a></li>
+            <li><a href="layouts.html">Layouts </a></li>
+            <li><a href="spacing.html">Spacing </a></li>
+          </ul>
+
+          <h3>Components</h3>
+          <ul>
+            <li><a href="buttons.html">Buttons </a></li>
+            <li><a href="forms.html">Forms & Inputs </a></li>
+            <li><a href="cards.html">Cards</a></li>
+            <li><a href="navigation.html">Navigation </a></li>
+            <li><a href="modals.html">Modals & Dialogs </a></li>
+            <li><a href="filters.html">Filters & Search </a></li>
+            <li><a href="interactive.html">Interactive</a></li>
+          </ul>
+
+          <h3>Data Visualization</h3>
+          <ul>
+            <li>
+              <a href="charts-line.html" aria-current="page"
+                >Line & Area Charts</a
+              >
+            </li>
+            <li><a href="charts-bar.html">Bar Charts</a></li>
+            <li><a href="charts-pie.html">Pie & Donut Charts</a></li>
+            <li><a href="charts-scatter.html">Scatter Plots</a></li>
+            <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <div class="ds-main-content">
+        <main class="container">
+          <!-- Intro -->
+          <section class="card">
+            <h2 style="margin-top: 0">Line & Area Charts</h2>
+            <p class="lead">
+              Line charts show trends over time, while area charts add visual
+              emphasis to magnitude.
+            </p>
+          </section>
+
+          <!-- Line Chart -->
+          <section class="card" style="margin-top: var(--space-8)">
+            <h3>Example: Global CO₂ Concentration (ppm)</h3>
+            <div id="line-chart-container"></div>
+          </section>
+
+          <!-- Usage Guidelines -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Usage Guidelines</h3>
+            <div class="card">
+              <h4>When to Use Line Charts</h4>
+              <ul>
+                <li>Showing trends over continuous time.</li>
+                <li>Comparing multiple trend lines.</li>
+                <li>Highlighting peaks, valleys, and direction of change.</li>
+              </ul>
+
+              <h4>When to Use Area Charts</h4>
+              <ul>
+                <li>Visualizing cumulative totals.</li>
+                <li>Emphasizing magnitude while still showing a trend.</li>
+                <li>Comparing stacked values across time.</li>
+              </ul>
+
+              <h4>Best Practices</h4>
+              <ul>
+                <li>Use consistent time intervals for accuracy.</li>
+                <li>Avoid too many overlapping lines — limit to 3–5 series.</li>
+                <li>Ensure high contrast between line color and background.</li>
+                <li>
+                  Use tooltips or labels to show exact values when possible.
+                </li>
+              </ul>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <!-- LINE CHART SCRIPT -->
+    <script>
+      const lineData = [
+        { year: new Date("2000-01-01"), ppm: 369 },
+        { year: new Date("2005-01-01"), ppm: 379 },
+        { year: new Date("2010-01-01"), ppm: 389 },
+        { year: new Date("2015-01-01"), ppm: 400 },
+        { year: new Date("2020-01-01"), ppm: 414 },
+      ];
+
+      const margin = { top: 20, right: 20, bottom: 50, left: 50 },
+        width = 600 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
+
+      const svgLine = d3
+        .select("#line-chart-container")
+        .append("svg")
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr(
+          "viewBox",
+          `0 0 ${width + margin.left + margin.right} ${
+            height + margin.top + margin.bottom
+          }`
+        )
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      const xScale = d3
+        .scaleTime()
+        .domain(d3.extent(lineData, (d) => d.year))
+        .range([0, width]);
+
+      svgLine
+        .append("g")
+        .attr("transform", `translate(0, ${height})`)
+        .call(d3.axisBottom(xScale).ticks(5));
+
+      const yScale = d3
+        .scaleLinear()
+        .domain([360, d3.max(lineData, (d) => d.ppm)])
+        .range([height, 0]);
+
+      svgLine.append("g").call(d3.axisLeft(yScale));
+
+      const line = d3
+        .line()
+        .x((d) => xScale(d.year))
+        .y((d) => yScale(d.ppm));
+
+      svgLine
+        .append("path")
+        .datum(lineData)
+        .attr("fill", "none")
+        .attr("stroke", "var(--color-danger)")
+        .attr("stroke-width", 3)
+        .attr("d", line);
+    </script>
+
+    <!-- AREA CHART SCRIPT -->
+    <script>
+      const areaData = [
+        { year: 2000, level: 30 },
+        { year: 2005, level: 45 },
+        { year: 2010, level: 60 },
+        { year: 2015, level: 82 },
+        { year: 2020, level: 95 },
+      ];
+
+      const svgArea = d3
+        .select("#area-chart-container")
+        .append("svg")
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr(
+          "viewBox",
+          `0 0 ${width + margin.left + margin.right} ${
+            height + margin.top + margin.bottom
+          }`
+        )
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      const xArea = d3.scaleLinear().domain([2000, 2020]).range([0, width]);
+
+      svgArea
+        .append("g")
+        .attr("transform", `translate(0, ${height})`)
+        .call(d3.axisBottom(xArea).ticks(5));
+
+      const yArea = d3
+        .scaleLinear()
+        .domain([0, d3.max(areaData, (d) => d.level)])
+        .range([height, 0]);
+
+      svgArea.append("g").call(d3.axisLeft(yArea));
+
+      const area = d3
+        .area()
+        .x((d) => xArea(d.year))
+        .y0(height)
+        .y1((d) => yArea(d.level));
+
+      svgArea
+        .append("path")
+        .datum(areaData)
+        .attr("fill", "var(--color-primary-light)")
+        .attr("stroke", "var(--color-primary)")
+        .attr("stroke-width", 2)
+        .attr("d", area);
+    </script>
+  </body>
+</html>

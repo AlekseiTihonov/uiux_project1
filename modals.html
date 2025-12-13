@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Modals & Dialogs – Ecovision Design System</title>
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Poppins for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ----------------------------------------
+         Ensure headings in modals stay serif 
+         ---------------------------------------- */
+      .modal-title,
+      .modal-header h3 {
+        font-family: var(--font-family-serif) !important;
+      }
+
+      /* Modal Overlay */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        padding: var(--space-4);
+      }
+
+      .modal-overlay.active {
+        display: flex;
+      }
+
+      /* Modal Container */
+      .modal {
+        background: var(--color-surface);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+        max-width: 500px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        animation: modalFadeIn 0.3s ease-out;
+      }
+
+      .modal-sm {
+        max-width: 400px;
+      }
+
+      .modal-lg {
+        max-width: 700px;
+      }
+
+      /* Modal Sections */
+      .modal-header {
+        padding: var(--space-6) var(--space-6) var(--space-2);
+        border-bottom: 1px solid var(--color-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .modal-title {
+        margin: 0;
+        font-size: var(--fs-h3);
+        font-weight: var(--font-weight-semibold);
+        color: var(--color-text);
+      }
+
+      .modal-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--color-muted);
+        padding: var(--space-1);
+      }
+
+      .modal-close:hover {
+        color: var(--color-primary);
+      }
+
+      .modal-body {
+        padding: var(--space-6);
+      }
+
+      .modal-footer {
+        padding: var(--space-4) var(--space-6);
+        border-top: 1px solid var(--color-border);
+        display: flex;
+        justify-content: flex-end;
+        gap: var(--space-3);
+      }
+
+      @keyframes modalFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .example-container {
+        margin: var(--space-6) 0;
+      }
+
+      .form-group {
+        margin-bottom: var(--space-4);
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: var(--space-2);
+        font-size: var(--fs-label);
+        font-weight: var(--font-weight-medium);
+      }
+
+      .form-control {
+        width: 100%;
+        padding: var(--space-2) var(--space-3);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm);
+        font-size: var(--fs-body);
+        line-height: 1.4;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="brand">
+          <span class="brand__dot"></span>
+          <h1 class="site-title">Modals & Dialogs</h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="ds-layout">
+      <!-- Sidebar -->
+      <aside class="ds-sidebar">
+        <nav aria-label="Design System Sections">
+          <h3>Foundation</h3>
+          <ul>
+            <li><a href="index.html">Overview</a></li>
+            <li><a href="colors.html">Colors</a></li>
+            <li><a href="typography.html">Typography</a></li>
+            <li><a href="layouts.html">Layouts</a></li>
+            <li><a href="spacing.html">Spacing</a></li>
+          </ul>
+
+          <h3>Components</h3>
+          <ul>
+            <li><a href="buttons.html">Buttons</a></li>
+            <li><a href="forms.html">Forms & Inputs</a></li>
+            <li><a href="cards.html">Cards</a></li>
+            <li><a href="navigation.html">Navigation</a></li>
+            <li>
+              <a href="modals.html" aria-current="page">Modals & Dialogs</a>
+            </li>
+            <li><a href="filters.html">Filters & Search</a></li>
+            <li><a href="interactive.html">Interactive</a></li>
+          </ul>
+
+          <h3>Data Visualization</h3>
+          <ul>
+            <li><a href="charts-line.html">Line & Area Charts</a></li>
+            <li><a href="charts-bar.html">Bar Charts</a></li>
+            <li><a href="charts-pie.html">Pie & Donut Charts</a></li>
+            <li><a href="charts-scatter.html">Scatter Plots</a></li>
+            <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <div class="ds-main-content">
+        <main class="container">
+          <section class="card">
+            <h2>Modals & Dialogs</h2>
+            <p class="lead">
+              Dialog and overlay patterns for focused user interactions. Use
+              modals for confirmations, forms, or additional information without
+              leaving the page.
+            </p>
+          </section>
+
+          <!-- Standard Modal -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Standard Modal</h3>
+            <p>
+              Use for confirmation dialogs, forms, or displaying additional
+              information.
+            </p>
+
+            <div class="example-container">
+              <button
+                class="btn btn-primary"
+                onclick="openModal('standardModal')"
+              >
+                Open Standard Modal
+              </button>
+            </div>
+          </section>
+
+          <!-- Small -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Small Modal</h3>
+            <p>Use for quick confirmations or very brief information.</p>
+
+            <div class="example-container">
+              <button
+                class="btn btn-secondary"
+                onclick="openModal('smallModal')"
+              >
+                Open Small Modal
+              </button>
+            </div>
+          </section>
+
+          <!-- Large -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Large Modal</h3>
+            <p>Use for complex forms, long content, or data-heavy dialogs.</p>
+
+            <div class="example-container">
+              <button
+                class="btn btn-secondary"
+                onclick="openModal('largeModal')"
+              >
+                Open Large Modal
+              </button>
+            </div>
+          </section>
+
+          <!-- Guidelines -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Usage Guidelines</h3>
+
+            <div class="card">
+              <h4>When to Use</h4>
+              <ul>
+                <li>Critical confirmations (deleting, irreversible actions)</li>
+                <li>When you need to show additional context</li>
+                <li>For secondary forms or interactions</li>
+                <li>When you need focused attention</li>
+              </ul>
+
+              <h4>When Not to Use</h4>
+              <ul>
+                <li>Main workflows should not be modal-based</li>
+                <li>Not ideal for large data tables</li>
+                <li>Avoid stacked / multiple modals</li>
+                <li>Be cautious with modals on mobile</li>
+              </ul>
+
+              <h4>Best Practices</h4>
+              <ul>
+                <li>Always provide a close button</li>
+                <li>Keep modal titles descriptive</li>
+                <li>Use strong action verbs on buttons</li>
+                <li>Ensure accessibility & focus management</li>
+                <li>Test on mobile for usability</li>
+              </ul>
+            </div>
+          </section>
+        </main>
+
+        <footer>
+          <div class="container">
+            <small>Ecovision · Modals & Dialogs</small>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Standard Modal -->
+    <div class="modal-overlay" id="standardModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Standard Modal Example</h3>
+          <button class="modal-close" onclick="closeModal('standardModal')">
+            ×
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <p>
+            This is a standard modal dialog. Use it for confirmations, forms, or
+            small content.
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('standardModal')"
+          >
+            Cancel
+          </button>
+          <button class="btn btn-primary" onclick="closeModal('standardModal')">
+            Confirm Action
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Small Modal -->
+    <div class="modal-overlay" id="smallModal">
+      <div class="modal modal-sm">
+        <div class="modal-header">
+          <h3 class="modal-title">Small Modal</h3>
+          <button class="modal-close" onclick="closeModal('smallModal')">
+            ×
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <p>This is a small modal for short confirmations.</p>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-primary" onclick="closeModal('smallModal')">
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Large Modal -->
+    <div class="modal-overlay" id="largeModal">
+      <div class="modal modal-lg">
+        <div class="modal-header">
+          <h3 class="modal-title">Large Modal with Form</h3>
+          <button class="modal-close" onclick="closeModal('largeModal')">
+            ×
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <p>This modal is for large forms or detailed content.</p>
+
+          <div class="form-group">
+            <label>Name</label>
+            <input class="form-control" type="text" placeholder="Enter name" />
+          </div>
+
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              class="form-control"
+              type="email"
+              placeholder="Enter email"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Message</label>
+            <textarea class="form-control" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" onclick="closeModal('largeModal')">
+            Cancel
+          </button>
+          <button class="btn btn-primary" onclick="closeModal('largeModal')">
+            Submit Form
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function openModal(id) {
+        document.getElementById(id).classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal(id) {
+        document.getElementById(id).classList.remove("active");
+        document.body.style.overflow = "auto";
+      }
+
+      document.addEventListener("click", function (event) {
+        if (event.target.classList.contains("modal-overlay")) {
+          closeModal(event.target.id);
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          document
+            .querySelectorAll(".modal-overlay.active")
+            .forEach((m) => m.classList.remove("active"));
+          document.body.style.overflow = "auto";
+        }
+      });
+    </script>
+  </body>
+</html>

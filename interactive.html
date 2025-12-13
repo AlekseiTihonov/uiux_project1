@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Interactive – Ecovision Design System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Tooltip Styles */
+      .tooltip-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: var(--space-6);
+        margin-top: var(--space-6);
+      }
+
+      .tooltip-container {
+        position: relative;
+        display: inline-block;
+        text-align: center;
+        width: 100%;
+      }
+
+      .tooltip {
+        position: absolute;
+        background-color: var(--color-text);
+        color: var(--color-surface);
+        padding: var(--space-2) var(--space-3);
+        border-radius: var(--radius-sm);
+        font-size: var(--fs-small);
+        white-space: nowrap;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+        box-shadow: var(--shadow-md);
+        pointer-events: none;
+      }
+
+      .tooltip::after {
+        content: "";
+        position: absolute;
+        border-width: 6px;
+        border-style: solid;
+      }
+
+      .tooltip-top {
+        bottom: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .tooltip-top::after {
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-color: var(--color-text) transparent transparent transparent;
+      }
+
+      .tooltip-right {
+        left: 125%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .tooltip-right::after {
+        right: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        border-color: transparent var(--color-text) transparent transparent;
+      }
+
+      .tooltip-bottom {
+        top: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .tooltip-bottom::after {
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-color: transparent transparent var(--color-text) transparent;
+      }
+
+      .tooltip-left {
+        right: 125%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .tooltip-left::after {
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        border-color: transparent transparent transparent var(--color-text);
+      }
+
+      .tooltip-container:hover .tooltip {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* Example table styles */
+      .example-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: var(--space-6) 0;
+        box-shadow: var(--shadow-sm);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        background: var(--color-surface);
+      }
+
+      .example-table th {
+        background-color: var(--color-primary);
+        color: var(--color-surface);
+        padding: var(--space-4);
+        text-align: left;
+        font-weight: var(--font-weight-semibold);
+      }
+
+      .example-table td {
+        padding: var(--space-4);
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .example-table tr:nth-child(even) {
+        background-color: var(--color-background);
+      }
+
+      /* Badge styles */
+      .badge-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: var(--space-4);
+        margin-top: var(--space-4);
+      }
+
+      .badge {
+        display: inline-block;
+        padding: var(--space-1) var(--space-3);
+        border-radius: 20px;
+        font-size: var(--fs-small);
+        font-weight: var(--font-weight-medium);
+        text-align: center;
+      }
+
+      .badge-primary {
+        background-color: var(--color-primary);
+        color: var(--color-surface);
+      }
+
+      .badge-secondary {
+        background-color: var(--color-secondary);
+        color: var(--color-surface);
+      }
+
+      .badge-success {
+        background-color: var(--color-success);
+        color: var(--color-surface);
+      }
+
+      .badge-warning {
+        background-color: var(--color-warning);
+        color: var(--color-text);
+      }
+
+      .badge-danger {
+        background-color: var(--color-danger);
+        color: var(--color-surface);
+      }
+
+      @media (max-width: 768px) {
+        .tooltip-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="brand">
+          <span class="brand__dot" aria-hidden="true"></span>
+          <h1 class="site-title">Interactive</h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="ds-layout">
+      <aside class="ds-sidebar">
+        <nav aria-label="Design System Sections">
+          <h3>Foundation</h3>
+          <ul>
+            <li><a href="index.html">Overview </a></li>
+            <li><a href="colors.html">Colors </a></li>
+            <li><a href="typography.html">Typography </a></li>
+            <li><a href="layouts.html">Layouts</a></li>
+            <li><a href="spacing.html">Spacing </a></li>
+          </ul>
+
+          <h3>Components</h3>
+          <ul>
+            <li><a href="buttons.html">Buttons </a></li>
+            <li><a href="forms.html">Forms & Inputs </a></li>
+            <li><a href="cards.html">Cards </a></li>
+            <li><a href="navigation.html">Navigation </a></li>
+            <li><a href="modals.html">Modals & Dialogs </a></li>
+            <li><a href="filters.html">Filters & Search </a></li>
+            <li>
+              <a href="interactive.html" aria-current="page">Interactive</a>
+            </li>
+          </ul>
+
+          <h3>Data Visualization</h3>
+          <ul>
+            <li><a href="charts-line.html">Line & Area Charts</a></li>
+            <li><a href="charts-bar.html">Bar Charts</a></li>
+            <li><a href="charts-pie.html">Pie & Donut Charts</a></li>
+            <li><a href="charts-scatter.html">Scatter Plots</a></li>
+            <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <div class="ds-main-content">
+        <main class="container">
+          <section class="card">
+            <h2 style="margin-top: 0">Interactive Elements</h2>
+            <p class="lead">
+              Tooltips, badges, status indicators, and other interactive
+              components that enhance user experience with contextual
+              information and visual feedback.
+            </p>
+          </section>
+
+          <section style="margin-top: var(--space-8)">
+            <h3>Tooltips</h3>
+            <p>
+              Contextual information that appears on hover or focus. Hover over
+              the buttons below to see the tooltips in action.
+            </p>
+
+            <table class="example-table">
+              <thead>
+                <tr>
+                  <th>Top Tooltip</th>
+                  <th>Right Tooltip</th>
+                  <th>Bottom Tooltip</th>
+                  <th>Left Tooltip</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Tooltip appears above the element</td>
+                  <td>Tooltip appears to the right of the element</td>
+                  <td>Tooltip appears below the element</td>
+                  <td>Tooltip appears to the left of the element</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="tooltip-grid">
+              <!-- Top Tooltip -->
+              <div class="tooltip-container">
+                <button class="btn btn-primary">Top Tooltip</button>
+                <div class="tooltip tooltip-top">This is a top tooltip</div>
+              </div>
+
+              <!-- Right Tooltip -->
+              <div class="tooltip-container">
+                <button class="btn btn-secondary">Right Tooltip</button>
+                <div class="tooltip tooltip-right">This is a right tooltip</div>
+              </div>
+
+              <!-- Bottom Tooltip -->
+              <div class="tooltip-container">
+                <button class="btn btn-primary">Bottom Tooltip</button>
+                <div class="tooltip tooltip-bottom">
+                  This is a bottom tooltip
+                </div>
+              </div>
+
+              <!-- Left Tooltip -->
+              <div class="tooltip-container">
+                <button class="btn btn-secondary">Left Tooltip</button>
+                <div class="tooltip tooltip-left">This is a left tooltip</div>
+              </div>
+            </div>
+          </section>
+
+          <section style="margin-top: var(--space-8)">
+            <h3>Badges & Status Indicators</h3>
+            <p>
+              Use badges to highlight status, categories, or counts. Status
+              indicators provide visual cues for different states.
+            </p>
+
+            <div class="card">
+              <h4>Badge Examples</h4>
+              <div class="badge-grid">
+                <div class="badge badge-primary">Primary</div>
+                <div class="badge badge-secondary">Secondary</div>
+                <div class="badge badge-success">Success</div>
+                <div class="badge badge-warning">Warning</div>
+                <div class="badge badge-danger">Danger</div>
+              </div>
+            </div>
+          </section>
+
+          <section style="margin-top: var(--space-8)">
+            <h3>Usage Guidelines</h3>
+            <div class="card">
+              <h4>Tooltip Best Practices</h4>
+              <ul>
+                <li>Keep tooltip text short and descriptive</li>
+                <li>Use tooltips for supplementary information only</li>
+                <li>Ensure tooltips are accessible via keyboard navigation</li>
+                <li>Test tooltips on different screen sizes</li>
+                <li>Use consistent positioning throughout the application</li>
+              </ul>
+
+              <h4>Badge Usage</h4>
+              <ul>
+                <li>Use badges for non-critical status information</li>
+                <li>Choose colors that match the semantic meaning</li>
+                <li>Keep badge text concise (1–3 words)</li>
+                <li>Ensure sufficient color contrast for accessibility</li>
+              </ul>
+            </div>
+          </section>
+        </main>
+
+        <footer>
+          <div class="container">
+            <small>Ecovision · Interactive</small>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

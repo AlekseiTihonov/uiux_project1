@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Buttons – Ecovision Design System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .btn {
+        font-family: inherit;
+        font-size: var(--fs-body);
+        padding: var(--space-2) var(--space-4);
+        border-radius: var(--radius-sm);
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        background: var(--color-primary);
+        color: var(--color-surface);
+      }
+
+      .btn-primary:hover {
+        filter: brightness(1.1);
+      }
+
+      .btn-primary:active {
+        filter: brightness(0.9);
+      }
+
+      .btn-secondary {
+        background: var(--color-secondary);
+        color: var(--color-surface);
+      }
+
+      .btn-secondary:hover {
+        filter: brightness(1.1);
+      }
+
+      .btn-secondary:active {
+        filter: brightness(0.9);
+      }
+
+      .btn[disabled],
+      .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .example {
+        margin: var(--space-3) 0 var(--space-4);
+      }
+
+      .code-block {
+        margin-top: var(--space-3);
+        background: var(--color-surface);
+        border-radius: var(--radius-lg);
+        padding: var(--space-4);
+        border: 1px solid var(--color-border);
+        font-family: "SFMono-Regular", ui-monospace, Menlo, Monaco,
+          Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: var(--fs-small);
+        overflow-x: auto;
+        white-space: pre;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="brand">
+          <span class="brand__dot" aria-hidden="true"></span>
+          <h1 class="site-title">Buttons</h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="ds-layout">
+      <aside class="ds-sidebar">
+        <nav aria-label="Design System Sections">
+          <h3>Foundation</h3>
+          <ul>
+            <li><a href="index.html">Overview </a></li>
+            <li><a href="colors.html">Colors </a></li>
+            <li><a href="typography.html">Typography </a></li>
+            <li><a href="layouts.html">Layouts</a></li>
+            <li><a href="spacing.html">Spacing </a></li>
+          </ul>
+
+          <h3>Components</h3>
+          <ul>
+            <li><a href="buttons.html" aria-current="page">Buttons </a></li>
+            <li><a href="forms.html">Forms & Inputs </a></li>
+            <li><a href="cards.html">Cards </a></li>
+            <li><a href="navigation.html">Navigation </a></li>
+            <li><a href="modals.html">Modals & Dialogs </a></li>
+            <li><a href="filters.html">Filters & Search </a></li>
+            <li><a href="interactive.html">Interactive</a></li>
+          </ul>
+
+          <h3>Data Visualization</h3>
+          <ul>
+            <li><a href="charts-line.html">Line & Area Charts</a></li>
+            <li><a href="charts-bar.html">Bar Charts</a></li>
+            <li><a href="charts-pie.html">Pie & Donut Charts</a></li>
+            <li><a href="charts-scatter.html">Scatter Plots</a></li>
+            <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <div class="ds-main-content">
+        <main class="container">
+          <section class="card">
+            <h2 style="margin-top: 0">Button Styles</h2>
+            <p class="lead">
+              Buttons start actions in the dashboard. Use a primary button for
+              the main action on a screen, and secondary or disabled buttons
+              for supporting actions.
+            </p>
+          </section>
+
+          <section style="margin-top: var(--space-8)">
+            <h3>Primary Button</h3>
+            <p>
+              The primary button is used for the most important action on a
+              page, such as “Save” or “Apply”.
+            </p>
+            <div class="example">
+              <button class="btn btn-primary">Primary Button</button>
+            </div>
+            <pre class="code-block"><code>&lt;button class="btn btn-primary"&gt;Primary Button&lt;/button&gt;</code></pre>
+          </section>
+
+          <section style="margin-top: var(--space-8)">
+            <h3>Secondary Button</h3>
+            <p>
+              The secondary button is used for less important actions that are
+              still available to the user.
+            </p>
+            <div class="example">
+              <button class="btn btn-secondary">Secondary Button</button>
+            </div>
+            <pre class="code-block"><code>&lt;button class="btn btn-secondary"&gt;Secondary Button&lt;/button&gt;</code></pre>
+          </section>
+
+          <section style="margin-top: var(--space-8)">
+            <h3>Disabled Button</h3>
+            <p>
+              A disabled button shows an action that is not available. It has
+              lower opacity and does not react to hover or click.
+            </p>
+            <div class="example">
+              <button class="btn btn-primary" disabled>
+                Disabled Button
+              </button>
+            </div>
+            <pre class="code-block"><code>&lt;button class="btn btn-primary" disabled&gt;Disabled Button&lt;/button&gt;</code></pre>
+          </section>
+        </main>
+
+        <footer>
+          <div class="container">
+            <small>Ecovision · Buttons</small>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

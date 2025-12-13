@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CanJet Design System – Overview</title>
+
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="brand">
+          <img src="canjet-logo.png" alt="CanJet logo" class="brand-logo" />
+
+          <h1 class="site-title" style="font-family: var(--font-serif)">
+            CanJet Design System
+          </h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="ds-layout">
+      <aside class="ds-sidebar">
+        <nav aria-label="Design System Sections">
+          <h3>Foundation</h3>
+          <ul>
+            <li>
+              <a href="index.html" aria-current="page">Overview</a>
+            </li>
+            <li><a href="colors.html">Colors</a></li>
+            <li><a href="typography.html">Typography</a></li>
+            <li><a href="layouts.html">Layouts</a></li>
+            <li><a href="spacing.html">Spacing</a></li>
+          </ul>
+
+          <h3>Components</h3>
+          <ul>
+            <li><a href="buttons.html">Buttons</a></li>
+            <li><a href="forms.html">Forms & Inputs</a></li>
+            <li><a href="cards.html">Cards</a></li>
+            <li><a href="navigation.html">Navigation</a></li>
+            <li><a href="modals.html">Modals & Dialogs</a></li>
+            <li><a href="filters.html">Filters & Search</a></li>
+            <li><a href="interactive.html">Interactive</a></li>
+          </ul>
+
+          <h3>Data Visualization</h3>
+          <ul>
+            <li><a href="charts-line.html">Line & Area Charts</a></li>
+            <li><a href="charts-bar.html">Bar Charts</a></li>
+            <li><a href="charts-pie.html">Pie & Donut Charts</a></li>
+            <li><a href="charts-scatter.html">Scatter Plots</a></li>
+            <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <div class="ds-main-content">
+        <main class="container">
+          <section class="card" style="border-radius: 0">
+            <h2
+              style="
+                font-size: var(--fs-h2);
+                margin-top: 0;
+                font-family: var(--font-serif);
+              "
+            >
+              Welcome
+            </h2>
+
+            <p class="lead">
+              A unified design system for CanJet, built to express excitement,
+              energy, and passion through a bold red triad palette.
+            </p>
+
+            <ul>
+              <li>
+                <strong>Theme:</strong> CanJet Branding – Excitement, Energy,
+                Passion
+              </li>
+
+              <li>
+                <strong>Use:</strong> All CanJet dashboard components (Project
+                2) must import these tokens for visual consistency.
+              </li>
+
+              <li>
+                <strong>Files:</strong>
+                <code class="code">styles.css</code>,
+                <code class="code">colors.html</code>,
+                <code class="code">typography.html</code>,
+                <code class="code">layouts.html</code>,
+                <code class="code">spacing.html</code>
+              </li>
+            </ul>
+          </section>
+
+          <section class="grid cols-3" style="margin-top: var(--space-8)">
+            <article class="card" style="border-radius: 0">
+              <h3 style="font-family: var(--font-serif)">Design Tokens</h3>
+              <p>
+                Centralized variables for colors, type, spacing, and layout.
+              </p>
+            </article>
+
+            <article class="card" style="border-radius: 0">
+              <h3 style="font-family: var(--font-serif)">Colors</h3>
+              <p>Red triad palette defining CanJet’s energetic identity.</p>
+            </article>
+
+            <article class="card" style="border-radius: 0">
+              <h3 style="font-family: var(--font-serif)">Typography</h3>
+              <p>
+                Serif headers, sans-serif UI — balancing character and
+                readability.
+              </p>
+            </article>
+          </section>
+        </main>
+
+        <footer>
+          <div class="container">
+            <small
+              >CanJet · INFO3171 · Member 1 – Design System Architect</small
+            >
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Scatter Plots – Ecovision Design System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <style>
+      /* Chart container styling */
+      #scatter-chart-container {
+        padding: var(--space-6);
+        background: var(--color-surface);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .axis-label {
+        font-size: var(--fs-small);
+        fill: var(--color-text);
+        text-anchor: middle;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="brand">
+          <span class="brand__dot" aria-hidden="true"></span>
+          <h1 class="site-title">Scatter Plots</h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="ds-layout">
+      <aside class="ds-sidebar">
+        <nav aria-label="Design System Sections">
+          <h3>Foundation</h3>
+          <ul>
+            <li><a href="index.html">Overview</a></li>
+            <li><a href="colors.html">Colors</a></li>
+            <li><a href="typography.html">Typography</a></li>
+            <li><a href="layouts.html">Layouts</a></li>
+            <li><a href="spacing.html">Spacing</a></li>
+          </ul>
+
+          <h3>Components</h3>
+          <ul>
+            <li><a href="buttons.html">Buttons</a></li>
+            <li><a href="forms.html">Forms & Inputs</a></li>
+            <li><a href="cards.html">Cards</a></li>
+            <li><a href="navigation.html">Navigation</a></li>
+            <li><a href="modals.html">Modals & Dialogs</a></li>
+            <li><a href="filters.html">Filters & Search</a></li>
+            <li><a href="interactive.html">Interactive</a></li>
+          </ul>
+
+          <h3>Data Visualization</h3>
+          <ul>
+            <li><a href="charts-line.html">Line & Area Charts</a></li>
+            <li><a href="charts-bar.html">Bar Charts</a></li>
+            <li><a href="charts-pie.html">Pie & Donut Charts</a></li>
+            <li>
+              <a href="charts-scatter.html" aria-current="page"
+                >Scatter Plots</a
+              >
+            </li>
+            <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <div class="ds-main-content">
+        <main class="container">
+          <!-- Intro -->
+          <section class="card">
+            <h2 style="margin-top: 0">Scatter Plots</h2>
+            <p class="lead">
+              Use scatter plots to show the relationship between two variables.
+            </p>
+          </section>
+
+          <!-- Example Scatter Plot -->
+          <section class="card" style="margin-top: var(--space-8)">
+            <h3>Example: GDP (Trillion USD) vs. CO₂ Emissions (MT)</h3>
+            <div id="scatter-chart-container"></div>
+          </section>
+
+          <!-- Usage Guidelines -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Usage Guidelines</h3>
+            <div class="card">
+              <h4>When to Use</h4>
+              <ul>
+                <li>To show correlation between two numeric variables.</li>
+                <li>To identify outliers or clusters in the data.</li>
+                <li>When comparing large datasets visually.</li>
+              </ul>
+
+              <h4>When Not to Use</h4>
+              <ul>
+                <li>
+                  When you need to show trends over time — use a line chart
+                  instead.
+                </li>
+                <li>For categorical data — use bar or pie charts.</li>
+                <li>If data points overlap too much (dense clusters).</li>
+              </ul>
+
+              <h4>Best Practices</h4>
+              <ul>
+                <li>Keep axes clearly labeled and scaled consistently.</li>
+                <li>Use semantic or brand colors for plot points.</li>
+                <li>Use tooltips or labels for more complex datasets.</li>
+                <li>
+                  Avoid too many points without transparency or clustering
+                  techniques.
+                </li>
+              </ul>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      const scatterData = [
+        { gdp: 20, emissions: 300 },
+        { gdp: 45, emissions: 500 },
+        { gdp: 15, emissions: 150 },
+        { gdp: 30, emissions: 400 },
+        { gdp: 55, emissions: 600 },
+        { gdp: 8, emissions: 90 },
+      ];
+
+      const margin = { top: 40, right: 20, bottom: 50, left: 60 };
+      const width = 600 - margin.left - margin.right;
+      const height = 420 - margin.top - margin.bottom;
+
+      const svg = d3
+        .select("#scatter-chart-container")
+        .append("svg")
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr(
+          "viewBox",
+          `0 0 ${width + margin.left + margin.right} ${
+            height + margin.top + margin.bottom
+          }`
+        )
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      const xScale = d3.scaleLinear().domain([0, 60]).range([0, width]);
+      const yScale = d3.scaleLinear().domain([0, 650]).range([height, 0]);
+
+      svg
+        .append("g")
+        .attr("transform", `translate(0,${height})`)
+        .call(d3.axisBottom(xScale));
+
+      svg.append("g").call(d3.axisLeft(yScale));
+
+      // Axis labels
+      svg
+        .append("text")
+        .attr("class", "axis-label")
+        .attr("x", width / 2)
+        .attr("y", height + 40)
+        .text("GDP (Trillion USD)");
+
+      svg
+        .append("text")
+        .attr("class", "axis-label")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -height / 2)
+        .attr("y", -40)
+        .text("CO₂ Emissions (MT)");
+
+      // Points
+      svg
+        .selectAll("circle")
+        .data(scatterData)
+        .enter()
+        .append("circle")
+        .attr("cx", (d) => xScale(d.gdp))
+        .attr("cy", (d) => yScale(d.emissions))
+        .attr("r", 7)
+        .style("fill", "var(--color-secondary)");
+    </script>
+  </body>
+</html>

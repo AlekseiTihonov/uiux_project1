@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Spacing – Ecovision Design System</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="brand">
+          <span class="brand__dot" aria-hidden="true"></span>
+          <h1 class="site-title">Spacing</h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="ds-layout">
+      <aside class="ds-sidebar">
+        <nav aria-label="Design System Sections">
+          <h3>Foundation</h3>
+          <ul>
+            <li><a href="index.html">Overview </a></li>
+            <li><a href="colors.html">Colors </a></li>
+            <li><a href="typography.html">Typography </a></li>
+            <li><a href="layouts.html">Layouts </a></li>
+            <li><a href="spacing.html" aria-current="page">Spacing </a></li>
+          </ul>
+
+          <h3>Components</h3>
+          <ul>
+            <li><a href="buttons.html">Buttons </a></li>
+            <li><a href="forms.html">Forms & Inputs </a></li>
+            <li><a href="cards.html">Cards</a></li>
+            <li><a href="navigation.html">Navigation </a></li>
+            <li><a href="modals.html">Modals & Dialogs </a></li>
+            <li><a href="filters.html">Filters & Search </a></li>
+            <li><a href="interactive.html">Interactive</a></li>
+          </ul>
+
+          <h3>Data Visualization</h3>
+          <ul>
+            <li><a href="charts-line.html">Line & Area Charts</a></li>
+            <li><a href="charts-bar.html">Bar Charts</a></li>
+            <li><a href="charts-pie.html">Pie & Donut Charts</a></li>
+            <li><a href="charts-scatter.html">Scatter Plots</a></li>
+            <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <div class="ds-main-content">
+        <main class="container">
+          <section class="card">
+            <h2 style="margin-top: 0">Spacing Scale & Guidelines</h2>
+            <p class="lead">
+              Consistent spacing scale using CSS custom properties. Based on 4px
+              increments for visual harmony and rhythm.
+            </p>
+          </section>
+
+          <!-- Spacing Scale -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Spacing Scale</h3>
+            <div class="card">
+              <div class="spacing-demo">
+                <div class="spacing-item">
+                  <div
+                    class="spacing-visual"
+                    style="width: var(--space-1)"
+                  ></div>
+                  <code>--space-1</code> 4px
+                </div>
+                <div class="spacing-item">
+                  <div
+                    class="spacing-visual"
+                    style="width: var(--space-2)"
+                  ></div>
+                  <code>--space-2</code> 8px
+                </div>
+                <div class="spacing-item">
+                  <div
+                    class="spacing-visual"
+                    style="width: var(--space-3)"
+                  ></div>
+                  <code>--space-3</code> 12px
+                </div>
+                <div class="spacing-item">
+                  <div
+                    class="spacing-visual"
+                    style="width: var(--space-4)"
+                  ></div>
+                  <code>--space-4</code> 16px
+                </div>
+                <div class="spacing-item">
+                  <div
+                    class="spacing-visual"
+                    style="width: var(--space-5)"
+                  ></div>
+                  <code>--space-5</code> 20px
+                </div>
+                <div class="spacing-item">
+                  <div
+                    class="spacing-visual"
+                    style="width: var(--space-6)"
+                  ></div>
+                  <code>--space-6</code> 24px
+                </div>
+                <div class="spacing-item">
+                  <div
+                    class="spacing-visual"
+                    style="width: var(--space-8)"
+                  ></div>
+                  <code>--space-8</code> 32px
+                </div>
+                <div class="spacing-item">
+                  <div
+                    class="spacing-visual"
+                    style="width: var(--space-10)"
+                  ></div>
+                  <code>--space-10</code> 40px
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Usage Examples -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Usage Examples</h3>
+
+            <div class="card">
+              <h4>Component Spacing</h4>
+              <div class="spacing-example">
+                <div class="example-item" style="margin-bottom: var(--space-4)">
+                  Card padding: <code>var(--space-6)</code>
+                </div>
+                <div class="example-item" style="margin-bottom: var(--space-4)">
+                  Section margin: <code>var(--space-8)</code>
+                </div>
+                <div class="example-item">
+                  Button padding: <code>var(--space-3) var(--space-4)</code>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" style="margin-top: var(--space-6)">
+              <h4>Layout Spacing</h4>
+              <div class="spacing-example">
+                <div class="example-item" style="margin-bottom: var(--space-4)">
+                  Grid gap: <code>var(--space-4)</code>
+                </div>
+                <div class="example-item" style="margin-bottom: var(--space-4)">
+                  Container padding: <code>var(--space-8) var(--space-6)</code>
+                </div>
+                <div class="example-item">
+                  Sidebar padding: <code>var(--space-6) var(--space-4)</code>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <footer>
+          <div class="container">
+            <small>Ecovision · Spacing</small>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

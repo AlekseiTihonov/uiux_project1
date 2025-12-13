@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Forms & Inputs – Ecovision Design System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      /* Component styles for Forms page */
+      .form-group {
+        margin-bottom: var(--space-4);
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: var(--space-2);
+        font-size: var(--fs-label);
+        font-weight: var(--font-weight-medium);
+      }
+      .form-control {
+        width: 100%;
+        padding: var(--space-2) var(--space-3);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm);
+        font-size: var(--fs-body);
+        line-height: 1.4;
+      }
+      .form-control:focus {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+      }
+      .form-control--error {
+        border-color: var(--color-danger);
+      }
+      .error-message {
+        margin-top: var(--space-1);
+        font-size: var(--fs-small);
+        color: var(--color-danger);
+      }
+      .example {
+        margin: var(--space-2) 0 var(--space-4);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="brand">
+          <span class="brand__dot" aria-hidden="true"></span>
+          <h1 class="site-title">Forms & Inputs</h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="ds-layout">
+      <aside class="ds-sidebar">
+        <nav aria-label="Design System Sections">
+          <h3>Foundation</h3>
+          <ul>
+            <li><a href="index.html">Overview </a></li>
+            <li><a href="colors.html">Colors </a></li>
+            <li><a href="typography.html">Typography </a></li>
+            <li><a href="layouts.html">Layouts</a></li>
+            <li><a href="spacing.html">Spacing </a></li>
+          </ul>
+
+          <h3>Components</h3>
+          <ul>
+            <li><a href="buttons.html">Buttons </a></li>
+            <li><a href="forms.html" aria-current="page">Forms & Inputs </a></li>
+            <li><a href="cards.html">Cards </a></li>
+            <li><a href="navigation.html">Navigation </a></li>
+            <li><a href="modals.html">Modals & Dialogs </a></li>
+            <li><a href="filters.html">Filters & Search </a></li>
+            <li><a href="interactive.html">Interactive</a></li>
+          </ul>
+
+          <h3>Data Visualization</h3>
+          <ul>
+            <li><a href="charts-line.html">Line & Area Charts</a></li>
+            <li><a href="charts-bar.html">Bar Charts</a></li>
+            <li><a href="charts-pie.html">Pie & Donut Charts</a></li>
+            <li><a href="charts-scatter.html">Scatter Plots</a></li>
+            <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
+          </ul>
+        </nav>
+      </aside>
+      <div class="ds-main-content">
+        <main class="container">
+          <section class="card">
+            <h2 style="margin-top: 0">Form Inputs & Usage</h2>
+            <p class="lead">
+              Form elements allow users to input and select data. Consistent styling helps users recognize inputs, and clear labels and feedback ensure accessibility. All form controls are styled with common padding and borders using design tokens, and include states for focus and validation feedback.
+            </p>
+          </section>
+          <section style="margin-top: var(--space-8)">
+            <h3>Text Input</h3>
+            <p>A standard text field for user input. It should be accompanied by a label for clarity. Use placeholder text to hint at the expected content, and ensure the text is legible against the input background.</p>
+            <div class="example">
+              <div class="form-group">
+                <label for="input-example">Example Label</label>
+                <input type="text" id="input-example" class="form-control" placeholder="Type here..." />
+              </div>
+            </div>
+            <pre class="card"><code>&lt;label for="input-id"&gt;Field Label&lt;/label&gt;
+&lt;input type="text" id="input-id" class="form-control" placeholder="Type here..." /&gt;</code></pre>
+          </section>
+          <section style="margin-top: var(--space-8)">
+            <h3>Select Dropdown</h3>
+            <p>A dropdown allows users to select one option from a list. Like inputs, it should have an associated label. Keep the default option (if any) clear and concise, and ensure the control is wide enough to show the content of options.</p>
+            <div class="example">
+              <div class="form-group">
+                <label for="select-example">Choose an option</label>
+                <select id="select-example" class="form-control">
+                  <option value="">-- Select --</option>
+                  <option value="1">Option One</option>
+                  <option value="2">Option Two</option>
+                </select>
+              </div>
+            </div>
+            <pre class="card"><code>&lt;label for="select-id"&gt;Choose an option&lt;/label&gt;
+&lt;select id="select-id" class="form-control"&gt;
+  &lt;option value=""&gt;-- Select --&lt;/option&gt;
+  &lt;option value="1"&gt;Option One&lt;/option&gt;
+  &lt;option value="2"&gt;Option Two&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+          </section>
+          <section style="margin-top: var(--space-8)">
+            <h3>Checkboxes & Radio Buttons</h3>
+            <p>Checkboxes allow users to select multiple options, while radio buttons allow a single selection from a group. Both should include clear labels and be grouped logically. Clicking the label toggles the input, improving usability.</p>
+            <div class="example">
+              <label><input type="checkbox" name="example-check" checked /> Remember me</label><br />
+              <label><input type="radio" name="example-radio" checked /> Option A</label><br />
+              <label><input type="radio" name="example-radio" /> Option B</label>
+            </div>
+            <pre class="card"><code>&lt;label&gt;&lt;input type="checkbox" name="subscribe" /&gt; Subscribe&lt;/label&gt;
+&lt;label&gt;&lt;input type="radio" name="choice" /&gt; Option A&lt;/label&gt;
+&lt;label&gt;&lt;input type="radio" name="choice" /&gt; Option B&lt;/label&gt;</code></pre>
+          </section>
+          <section style="margin-top: var(--space-8)">
+            <h3>Error State</h3>
+            <p>When a form field has invalid input or is required and not filled, an error state provides feedback. Use a clear message and a distinct color (e.g., red) to highlight the field. Ensure that the error color is accessible (consider color contrast) and supplemented by an icon or text for clarity if possible.</p>
+            <div class="example">
+              <div class="form-group">
+                <label for="email-field">Email</label>
+                <input type="email" id="email-field" class="form-control form-control--error" placeholder="name@example.com" />
+                <p class="error-message">Please enter a valid email.</p>
+              </div>
+            </div>
+            <pre class="card"><code>&lt;label for="email"&gt;Email&lt;/label&gt;
+&lt;input type="email" id="email" class="form-control form-control--error" /&gt;
+&lt;p class="error-message"&gt;Please enter a valid email.&lt;/p&gt;</code></pre>
+          </section>
+        </main>
+
+        <footer>
+          <div class="container">
+            <small>Ecovision · Forms & Inputs</small>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

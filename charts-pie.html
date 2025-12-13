@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pie & Donut Charts – Ecovision Design System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <style>
+      #pie-chart-container {
+        padding: var(--space-6);
+        background: var(--color-surface);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-sm);
+        display: flex;
+        justify-content: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="brand">
+          <span class="brand__dot" aria-hidden="true"></span>
+          <h1 class="site-title">Pie & Donut Charts</h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="ds-layout">
+      <aside class="ds-sidebar">
+        <nav aria-label="Design System Sections">
+          <h3>Foundation</h3>
+          <ul>
+            <li><a href="index.html">Overview </a></li>
+            <li><a href="colors.html">Colors </a></li>
+            <li><a href="typography.html">Typography </a></li>
+            <li><a href="layouts.html">Layouts </a></li>
+            <li><a href="spacing.html">Spacing </a></li>
+          </ul>
+
+          <h3>Components</h3>
+          <ul>
+            <li><a href="buttons.html">Buttons </a></li>
+            <li><a href="forms.html">Forms & Inputs </a></li>
+            <li><a href="cards.html">Cards</a></li>
+            <li><a href="navigation.html">Navigation </a></li>
+            <li><a href="modals.html">Modals & Dialogs </a></li>
+            <li><a href="filters.html">Filters & Search </a></li>
+            <li><a href="interactive.html">Interactive</a></li>
+          </ul>
+
+          <h3>Data Visualization</h3>
+          <ul>
+            <li><a href="charts-line.html">Line & Area Charts</a></li>
+            <li><a href="charts-bar.html">Bar Charts</a></li>
+            <li>
+              <a href="charts-pie.html" aria-current="page"
+                >Pie & Donut Charts</a
+              >
+            </li>
+            <li><a href="charts-scatter.html">Scatter Plots</a></li>
+            <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <div class="ds-main-content">
+        <main class="container">
+          <!-- Intro -->
+          <section class="card">
+            <h2 style="margin-top: 0">Pie & Donut Charts</h2>
+            <p class="lead">
+              Use pie and donut charts to compare parts of a whole. They work
+              best with a small number of categories.
+            </p>
+          </section>
+
+          <!-- Chart Example -->
+          <section class="card" style="margin-top: var(--space-8)">
+            <h3>Example: Sources of Plastic Waste</h3>
+            <div id="pie-chart-container"></div>
+          </section>
+
+          <!-- Usage Guidelines -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Usage Guidelines</h3>
+            <div class="card">
+              <h4>When to Use</h4>
+              <ul>
+                <li>To show proportions within a whole.</li>
+                <li>To compare 3–6 categories.</li>
+                <li>When differences between segments are meaningful.</li>
+              </ul>
+
+              <h4>When Not to Use</h4>
+              <ul>
+                <li>If categories are too many or too similar in size.</li>
+                <li>
+                  When exact values must be compared — use a bar chart instead.
+                </li>
+                <li>For time-series data or trends.</li>
+              </ul>
+
+              <h4>Best Practices</h4>
+              <ul>
+                <li>Use clear, distinguishable colors for each segment.</li>
+                <li>Sort slices from largest to smallest when appropriate.</li>
+                <li>Use labels or a legend for clarity.</li>
+                <li>
+                  Donut charts work well when emphasizing the center text (e.g.,
+                  total value).
+                </li>
+              </ul>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <!-- PIE CHART SCRIPT -->
+    <script>
+      const pieData = [
+        { source: "Packaging", percent: 42 },
+        { source: "Textiles", percent: 15 },
+        { source: "Electronics", percent: 20 },
+        { source: "Other", percent: 23 },
+      ];
+
+      const width = 450,
+        height = 450,
+        margin = 40;
+
+      const radius = Math.min(width, height) / 2 - margin;
+
+      const svg = d3
+        .select("#pie-chart-container")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", `translate(${width / 2}, ${height / 2})`);
+
+      const color = d3
+        .scaleOrdinal()
+        .domain(pieData.map((d) => d.source))
+        .range([
+          "var(--color-primary)",
+          "var(--color-secondary)",
+          "var(--color-warning)",
+          "var(--color-accent)",
+        ]);
+
+      const pie = d3
+        .pie()
+        .value((d) => d.percent)
+        .sort(null);
+
+      const data_ready = pie(pieData);
+
+      const arc = d3
+        .arc()
+        .innerRadius(radius * 0.45) // Donut chart
+        .outerRadius(radius);
+
+      svg
+        .selectAll("path")
+        .data(data_ready)
+        .enter()
+        .append("path")
+        .attr("d", arc)
+        .attr("fill", (d) => color(d.data.source))
+        .attr("stroke", "white")
+        .style("stroke-width", "2px");
+
+      svg
+        .selectAll("text")
+        .data(data_ready)
+        .enter()
+        .append("text")
+        .text((d) => `${d.data.source}`)
+        .attr("transform", (d) => `translate(${arc.centroid(d)})`)
+        .style("text-anchor", "middle")
+        .style("font-size", "14px")
+        .style("font-weight", "500")
+        .style("fill", "white");
+    </script>
+  </body>
+</html>

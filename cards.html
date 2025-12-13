@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cards – Ecovision Design System</title>
+    <link rel="stylesheet" href="styles.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      .btn {
+        font-family: inherit;
+        font-size: var(--fs-body);
+        padding: var(--space-2) var(--space-4);
+        border-radius: var(--radius-sm);
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        background: var(--color-primary);
+        color: var(--color-surface);
+      }
+
+      .btn-secondary {
+        background: var(--color-secondary);
+        color: var(--color-surface);
+      }
+
+      .actions {
+        margin-top: var(--space-4);
+        display: flex;
+        gap: var(--space-2);
+      }
+
+      .example {
+        margin: var(--space-2) 0 var(--space-4);
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="brand">
+          <span class="brand__dot" aria-hidden="true"></span>
+          <h1 class="site-title">Cards</h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="ds-layout">
+      <aside class="ds-sidebar">
+        <nav aria-label="Design System Sections">
+          <h3>Foundation</h3>
+          <ul>
+            <li><a href="index.html">Overview</a></li>
+            <li><a href="colors.html">Colors</a></li>
+            <li><a href="typography.html">Typography</a></li>
+            <li><a href="layouts.html">Layouts</a></li>
+            <li><a href="spacing.html">Spacing</a></li>
+          </ul>
+
+          <h3>Components</h3>
+          <ul>
+            <li><a href="buttons.html">Buttons</a></li>
+            <li><a href="forms.html">Forms & Inputs</a></li>
+            <li><a href="cards.html" aria-current="page">Cards</a></li>
+            <li><a href="navigation.html">Navigation</a></li>
+            <li><a href="modals.html">Modals & Dialogs</a></li>
+            <li><a href="filters.html">Filters & Search</a></li>
+            <li><a href="interactive.html">Interactive</a></li>
+          </ul>
+
+          <h3>Data Visualization</h3>
+          <ul>
+            <li><a href="charts-line.html">Line & Area Charts</a></li>
+            <li><a href="charts-bar.html">Bar Charts</a></li>
+            <li><a href="charts-pie.html">Pie & Donut Charts</a></li>
+            <li><a href="charts-scatter.html">Scatter Plots</a></li>
+            <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <div class="ds-main-content">
+        <main class="container">
+          <!-- Intro -->
+          <section class="card">
+            <h2 style="margin-top: 0">Card Components</h2>
+            <p class="lead">
+              Cards group related information into a clear, structured
+              container. They help organize dashboards by creating consistent
+              content blocks with padding, borders, and optional actions.
+            </p>
+          </section>
+
+          <!-- Basic Card -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Basic Card</h3>
+            <p>
+              Use basic cards to present short text content or grouped
+              information.
+            </p>
+
+            <div class="example">
+              <div class="card">
+                <h4>Card Title</h4>
+                <p>This is a simple card with a title and text content.</p>
+              </div>
+            </div>
+
+            <pre class="card"><code>&lt;div class="card"&gt;
+  &lt;h4&gt;Card Title&lt;/h4&gt;
+  &lt;p&gt;Card content...&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+            <h4 style="margin-top: var(--space-4)">Usage Guidelines</h4>
+            <ul>
+              <li>Use for small, focused content groups.</li>
+              <li>Do not overload a card with too much text.</li>
+              <li>Keep spacing consistent inside the card.</li>
+            </ul>
+          </section>
+
+          <!-- Card with Image -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Card with Image</h3>
+            <p>Use image cards when visual context improves understanding.</p>
+
+            <div class="example">
+              <div class="card" style="padding: 0">
+                <img
+                  src="https://media.istockphoto.com/id/990697728/vector/abstract-red-vector-background-with-stripes.jpg?s=612x612&w=0&k=20&c=T7x1Fn7GT6E73x5iWnXoUJGsU8nFd9tK57LJDHu6fps="
+                  alt="Example image"
+                  style="
+                    width: 100%;
+                    display: block;
+                    border-top-left-radius: var(--radius-lg);
+                    border-top-right-radius: var(--radius-lg);
+                  "
+                />
+                <div style="padding: var(--space-6)">
+                  <h4>Card Heading</h4>
+                  <p>Supporting text for the image.</p>
+                </div>
+              </div>
+            </div>
+
+            <h4 style="margin-top: var(--space-4)">Usage Guidelines</h4>
+            <ul>
+              <li>Use images only when meaningful to the content.</li>
+              <li>Ensure all images include descriptive alt text.</li>
+              <li>Keep images responsive and aligned to the card layout.</li>
+            </ul>
+          </section>
+
+          <!-- Card with Actions -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Card with Actions</h3>
+            <p>Use action cards for content that requires user decisions.</p>
+
+            <div class="example">
+              <div class="card">
+                <h4>Card Title</h4>
+                <p>Content that leads to actions appears here.</p>
+
+                <div class="actions">
+                  <button class="btn btn-primary">Save</button>
+                  <button class="btn btn-secondary">Cancel</button>
+                </div>
+              </div>
+            </div>
+
+            <h4 style="margin-top: var(--space-4)">Usage Guidelines</h4>
+            <ul>
+              <li>Place actions at the bottom of the card for consistency.</li>
+              <li>Use a primary button for the main action.</li>
+              <li>Do not overload the card with too many actions.</li>
+            </ul>
+          </section>
+        </main>
+
+        <footer>
+          <div class="container">
+            <small>Ecovision · Cards</small>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

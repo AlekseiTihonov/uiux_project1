@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Filters & Search – Ecovision Design System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .filter-section {
+        background: var(--color-surface);
+        border-radius: var(--radius-lg);
+        padding: var(--space-6);
+        margin-bottom: var(--space-6);
+        box-shadow: var(--shadow-sm);
+      }
+      
+      .filter-top {
+        display: grid;
+        grid-template-columns: 1fr auto auto auto auto;
+        gap: var(--space-4);
+        align-items: end;
+        margin-bottom: var(--space-4);
+      }
+      
+      .search-box {
+        position: relative;
+      }
+      
+      .search-icon {
+        position: absolute;
+        left: var(--space-3);
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--color-muted);
+      }
+      
+      .search-input {
+        width: 100%;
+        padding: var(--space-2) var(--space-3) var(--space-2) var(--space-8);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm);
+        font-size: var(--fs-body);
+      }
+      
+      .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+      }
+      
+      .filter-group label {
+        font-size: var(--fs-small);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text);
+      }
+      
+      .filter-select {
+        padding: var(--space-2) var(--space-3);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm);
+        font-size: var(--fs-body);
+        background: var(--color-surface);
+        min-width: 140px;
+      }
+      
+      .filter-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-3);
+        padding: var(--space-3) 0;
+      }
+      
+      .filter-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-2);
+        background: var(--color-primary-light);
+        color: var(--color-primary);
+        padding: var(--space-1) var(--space-3);
+        border-radius: var(--radius-full);
+        font-size: var(--fs-small);
+        font-weight: var(--font-weight-medium);
+      }
+      
+      .filter-tag .close {
+        cursor: pointer;
+        font-weight: var(--font-weight-bold);
+        font-size: var(--fs-h4);
+        line-height: 1;
+      }
+      
+      .filter-tag .close:hover {
+        color: var(--color-danger);
+      }
+      
+      .example-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: var(--space-6) 0;
+        box-shadow: var(--shadow-sm);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        background: var(--color-surface);
+      }
+      
+      .example-table th {
+        background-color: var(--color-primary);
+        color: var(--color-surface);
+        padding: var(--space-4);
+        text-align: left;
+        font-weight: var(--font-weight-semibold);
+      }
+      
+      .example-table td {
+        padding: var(--space-4);
+        border-bottom: 1px solid var(--color-border);
+      }
+      
+      .example-table tr:nth-child(even) {
+        background-color: var(--color-background);
+      }
+      
+      @media (max-width: 768px) {
+        .filter-top {
+          grid-template-columns: 1fr;
+          gap: var(--space-3);
+        }
+        
+        .filter-group {
+          min-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="brand">
+          <span class="brand__dot" aria-hidden="true"></span>
+          <h1 class="site-title">Filters & Search</h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="ds-layout">
+      <aside class="ds-sidebar">
+        <nav aria-label="Design System Sections">
+          <h3>Foundation</h3>
+          <ul>
+            <li><a href="index.html">Overview</a></li>
+            <li><a href="colors.html">Colors</a></li>
+            <li><a href="typography.html">Typography</a></li>
+            <li><a href="layouts.html">Layouts</a></li>
+            <li><a href="spacing.html">Spacing</a></li>
+          </ul>
+
+          <h3>Components</h3>
+          <ul>
+            <li><a href="buttons.html">Buttons</a></li>
+            <li><a href="forms.html">Forms & Inputs</a></li>
+            <li><a href="cards.html">Cards</a></li>
+            <li><a href="navigation.html">Navigation</a></li>
+            <li><a href="modals.html">Modals & Dialogs</a></li>
+            <li><a href="filters.html" aria-current="page">Filters & Search</a></li>
+            <li><a href="interactive.html">Interactive</a></li>
+          </ul>
+
+          <h3>Data Visualization</h3>
+          <ul>
+            <li><a href="charts-line.html">Line & Area Charts</a></li>
+            <li><a href="charts-bar.html">Bar Charts</a></li>
+            <li><a href="charts-pie.html">Pie & Donut Charts</a></li>
+            <li><a href="charts-scatter.html">Scatter Plots</a></li>
+            <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <div class="ds-main-content">
+        <main class="container">
+          <section class="card">
+            <h2 style="margin-top: 0">Filters & Search Patterns</h2>
+            <p class="lead">
+              Search, filter, and sorting components for data exploration and navigation. These patterns help users find and organize information efficiently.
+            </p>
+          </section>
+
+          <section style="margin-top: var(--space-8)">
+            <h3>Search with Filters</h3>
+            <p>A comprehensive filtering system with search, category filters, and active filter tags.</p>
+            
+            <table class="example-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Data Range</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Search datasets...</td>
+                  <td>All Categories</td>
+                  <td>All Time</td>
+                  <td>All Status</td>
+                </tr>
+              </tbody>
+            </table>
+            
+            <div class="filter-section">
+              <div class="filter-top">
+                <div class="search-box">
+                  <span class="search-icon">@</span>
+                  <input type="text" class="search-input" placeholder="Search datasets...">
+                </div>
+                
+                <div class="filter-group">
+                  <label for="category-filter">Category</label>
+                  <select id="category-filter" class="filter-select">
+                    <option value="all">All Categories</option>
+                    <option value="species">Species</option>
+                    <option value="financial">Financial</option>
+                    <option value="user">User Analytics</option>
+                  </select>
+                </div>
+                
+                <div class="filter-group">
+                  <label for="data-range">Data Range</label>
+                  <select id="data-range" class="filter-select">
+                    <option value="all">All Time</option>
+                    <option value="today">Today</option>
+                    <option value="week">Past Week</option>
+                    <option value="month">Past Month</option>
+                  </select>
+                </div>
+                
+                <div class="filter-group">
+                  <label for="status">Status</label>
+                  <select id="status" class="filter-select">
+                    <option value="all">All Status</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="pending">Pending</option>
+                  </select>
+                </div>
+                
+                <button class="btn btn-secondary" onclick="clearFilters()">Clear</button>
+              </div>
+              
+              <div class="filter-tags" id="active-filters">
+                <div class="filter-tag">
+                  Category: Species
+                  <span class="close" onclick="removeFilter(this)">×</span>
+                </div>
+                <div class="filter-tag">
+                  Status: Active
+                  <span class="close" onclick="removeFilter(this)">×</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section style="margin-top: var(--space-8)">
+            <h3>Usage Guidelines</h3>
+            <div class="card">
+              <h4>Filter Design Principles</h4>
+              <ul>
+                <li>Keep filter options relevant to the dataset</li>
+                <li>Use clear, descriptive labels for filter categories</li>
+                <li>Show active filters as removable tags</li>
+                <li>Provide a clear way to reset all filters</li>
+                <li>Consider the order of filter importance</li>
+              </ul>
+              
+              <h4>Search Best Practices</h4>
+              <ul>
+                <li>Provide search suggestions when appropriate</li>
+                <li>Use clear placeholder text that indicates what can be searched</li>
+                <li>Consider implementing fuzzy search for better user experience</li>
+                <li>Show search results count when applicable</li>
+                <li>Make the search box prominently placed</li>
+              </ul>
+            </div>
+          </section>
+        </main>
+
+        <footer>
+          <div class="container">
+            <small>Ecovision · Filters & Search</small>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <script>
+      function removeFilter(element) {
+        element.parentElement.remove();
+      }
+      
+      function clearFilters() {
+        document.getElementById('active-filters').innerHTML = '';
+        document.querySelector('.search-input').value = '';
+        document.getElementById('category-filter').value = 'all';
+        document.getElementById('data-range').value = 'all';
+        document.getElementById('status').value = 'all';
+      }
+      
+      // Add filter functionality
+      document.getElementById('category-filter').addEventListener('change', function() {
+        if (this.value !== 'all') {
+          addFilter('Category', this.options[this.selectedIndex].text);
+        }
+      });
+      
+      document.getElementById('status').addEventListener('change', function() {
+        if (this.value !== 'all') {
+          addFilter('Status', this.options[this.selectedIndex].text);
+        }
+      });
+      
+      function addFilter(type, value) {
+        const activeFilters = document.getElementById('active-filters');
+        const filterExists = Array.from(activeFilters.children).some(child => 
+          child.textContent.includes(`${type}:`)
+        );
+        
+        if (!filterExists) {
+          const filterTag = document.createElement('div');
+          filterTag.className = 'filter-tag';
+          filterTag.innerHTML = `
+            ${type}: ${value}
+            <span class="close" onclick="removeFilter(this)">×</span>
+          `;
+          activeFilters.appendChild(filterTag);
+        }
+      }
+    </script>
+  </body>
+</html>

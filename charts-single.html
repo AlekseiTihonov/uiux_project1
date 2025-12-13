@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Single Value Charts – Ecovision Design System</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="brand">
+          <span class="brand__dot" aria-hidden="true"></span>
+          <h1 class="site-title">Single Value (KPI) Charts</h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="ds-layout">
+      <aside class="ds-sidebar">
+        <nav aria-label="Design System Sections">
+          <h3>Foundation</h3>
+          <ul>
+            <li><a href="index.html">Overview </a></li>
+            <li><a href="colors.html">Colors </a></li>
+            <li><a href="typography.html">Typography </a></li>
+            <li><a href="layouts.html">Layouts </a></li>
+            <li><a href="spacing.html">Spacing </a></li>
+          </ul>
+
+          <h3>Components</h3>
+          <ul>
+            <li><a href="buttons.html">Buttons </a></li>
+            <li><a href="forms.html">Forms & Inputs </a></li>
+            <li><a href="cards.html">Cards</a></li>
+            <li><a href="navigation.html">Navigation </a></li>
+            <li><a href="modals.html">Modals & Dialogs </a></li>
+            <li><a href="filters.html">Filters & Search </a></li>
+            <li><a href="interactive.html">Interactive</a></li>
+          </ul>
+
+          <h3>Data Visualization</h3>
+          <ul>
+            <li><a href="charts-line.html">Line & Area Charts</a></li>
+            <li><a href="charts-bar.html">Bar Charts</a></li>
+            <li><a href="charts-pie.html">Pie & Donut Charts</a></li>
+            <li><a href="charts-scatter.html">Scatter Plots</a></li>
+            <li>
+              <a href="charts-single.html" aria-current="page"
+                >Single Value (KPI) Charts</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <div class="ds-main-content">
+        <main class="container">
+          <!-- Page Intro -->
+          <section class="card">
+            <h2 style="margin-top: 0">Single Value (KPI) Charts</h2>
+            <p class="lead">
+              Highlight key metrics for at-a-glance understanding.
+            </p>
+          </section>
+
+          <!-- KPI Example -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Example: KPI Display</h3>
+            <div
+              class="card"
+              style="text-align: center; padding: var(--space-8)"
+            >
+              <h3
+                style="
+                  margin: 0;
+                  color: var(--color-muted);
+                  font-size: var(--fs-h3);
+                "
+              >
+                Active Users Online
+              </h3>
+              <p
+                style="
+                  font-size: var(--fs-display);
+                  font-weight: var(--font-weight-bold);
+                  color: var(--color-primary);
+                  margin: var(--space-2) 0 0 0;
+                "
+              >
+                1,432
+              </p>
+            </div>
+          </section>
+
+          <!-- Usage Guidelines -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Usage Guidelines</h3>
+            <div class="card">
+              <h4>When to Use</h4>
+              <ul>
+                <li>
+                  To highlight a single, critical metric such as revenue, user
+                  count, or uptime.
+                </li>
+                <li>When the user needs quick, at-a-glance information.</li>
+                <li>
+                  For dashboard headers where summary KPIs appear above detailed
+                  charts.
+                </li>
+              </ul>
+
+              <h4>When Not to Use</h4>
+              <ul>
+                <li>
+                  When multiple values need comparison — use bar, line, or pie
+                  charts instead.
+                </li>
+                <li>For detailed trend analysis — use line/area charts.</li>
+                <li>When context is required (e.g., changes over time).</li>
+              </ul>
+
+              <h4>Best Practices</h4>
+              <ul>
+                <li>Use high contrast and large font size for readability.</li>
+                <li>Place KPIs consistently across dashboard layouts.</li>
+                <li>
+                  Use semantic colors to represent meaning (green = positive,
+                  red = warning).
+                </li>
+                <li>
+                  Limit KPI widgets — avoid using more than 3–5 in one section.
+                </li>
+              </ul>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

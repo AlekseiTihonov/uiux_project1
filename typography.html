@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Typography – Ecovision Design System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="brand">
+          <span class="brand__dot" aria-hidden="true"></span>
+          <h1 class="site-title">Typography</h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="ds-layout">
+      <aside class="ds-sidebar">
+        <nav aria-label="Design System Sections">
+          <h3>Foundation</h3>
+          <ul>
+            <li><a href="index.html">Overview </a></li>
+            <li><a href="colors.html">Colors</a></li>
+            <li>
+              <a href="typography.html" aria-current="page">Typography </a>
+            </li>
+            <li><a href="layouts.html">Layouts </a></li>
+            <li><a href="spacing.html">Spacing </a></li>
+          </ul>
+
+          <h3>Components</h3>
+          <ul>
+            <li><a href="buttons.html">Buttons </a></li>
+            <li><a href="forms.html">Forms & Inputs </a></li>
+            <li><a href="cards.html">Cards </a></li>
+            <li><a href="navigation.html">Navigation </a></li>
+            <li><a href="modals.html">Modals & Dialogs </a></li>
+            <li>
+              <a href="filters.html">Filters & Search </a>
+            </li>
+            <li><a href="interactive.html">Interactive </a></li>
+          </ul>
+
+          <h3>Data Visualization</h3>
+          <ul>
+            <li><a href="charts-line.html">Line & Area Charts</a></li>
+            <li><a href="charts-bar.html">Bar Charts</a></li>
+            <li><a href="charts-pie.html">Pie & Donut Charts</a></li>
+            <li><a href="charts-scatter.html">Scatter Plots</a></li>
+            <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
+          </ul>
+        </nav>
+      </aside>
+      <div class="ds-main-content">
+        <main class="container">
+          <section class="card">
+            <h2 style="margin-top: 0">Type Scale & Guidelines</h2>
+            <p class="lead">
+              Titles use a serif typeface for a strong, authoritative look,
+              while body text uses Poppins for readability. Variables are
+              defined in
+              <code class="code">:root</code>.
+            </p>
+          </section>
+
+          <section style="margin-top: var(--space-8)" class="typo-sample">
+            <h1>Heading 1</h1>
+            <p class="typo-meta">Variable: <code class="code">--fs-h1</code></p>
+
+            <h2>Heading 2</h2>
+            <p class="typo-meta">Variable: <code class="code">--fs-h2</code></p>
+
+            <h3>Heading 3</h3>
+            <p class="typo-meta">Variable: <code class="code">--fs-h3</code></p>
+
+            <p>
+              Body text uses <code class="code">--fs-body</code>. Keep line
+              length around 60–80 characters. Ensure sufficient contrast against
+              the background.
+            </p>
+            <p>
+              <span class="typo-meta">Weights:</span> Regular (400), Medium
+              (500), Semibold (600), Bold (700)
+            </p>
+            <p>
+              <span class="typo-meta">Labels:</span>
+              <span
+                style="
+                  font-size: var(--fs-label);
+                  font-weight: var(--font-weight-medium);
+                  letter-spacing: 0.02em;
+                "
+                >Form Label / Axis Label</span
+              >
+            </p>
+          </section>
+
+          <section style="margin-top: var(--space-8)">
+            <h3>Usage Notes</h3>
+            <ul class="card">
+              <li>
+                Use <strong>H1</strong> for page titles, <strong>H2</strong> for
+                major sections, and <strong>H3</strong> for card titles.
+              </li>
+              <li>
+                Body copy should remain at
+                <code class="code">--fs-body</code> for readability.
+              </li>
+              <li>
+                Avoid more than two font families. System stack fallback is
+                provided.
+              </li>
+              <li>
+                For charts (Project 2), use <strong>H3</strong> for chart titles
+                and <span class="badge">Label</span> size for axis labels &
+                legends.
+              </li>
+            </ul>
+          </section>
+        </main>
+
+        <footer>
+          <div class="container">
+            <small>Ecovision · Typography</small>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

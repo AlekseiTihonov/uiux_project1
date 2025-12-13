@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bar Charts</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="brand">
+          <span class="brand__dot" aria-hidden="true"></span>
+          <h1 class="site-title">Bar Charts</h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="ds-layout">
+      <aside class="ds-sidebar">
+        <nav aria-label="Design System Sections">
+          <h3>Foundation</h3>
+          <ul>
+            <li><a href="index.html">Overview</a></li>
+            <li><a href="colors.html">Colors</a></li>
+            <li><a href="typography.html">Typography</a></li>
+            <li><a href="layouts.html">Layouts</a></li>
+            <li><a href="spacing.html">Spacing</a></li>
+          </ul>
+
+          <h3>Components</h3>
+          <ul>
+            <li><a href="buttons.html">Buttons</a></li>
+            <li><a href="forms.html">Forms & Inputs</a></li>
+            <li><a href="cards.html">Cards</a></li>
+            <li><a href="navigation.html">Navigation</a></li>
+            <li><a href="modals.html">Modals & Dialogs</a></li>
+            <li><a href="filters.html">Filters & Search</a></li>
+            <li><a href="interactive.html">Interactive</a></li>
+          </ul>
+
+          <h3>Data Visualization</h3>
+          <ul>
+            <li><a href="charts-line.html">Line & Area Charts</a></li>
+            <li>
+              <a href="charts-bar.html" aria-current="page">Bar Charts</a>
+            </li>
+            <li><a href="charts-pie.html">Pie & Donut Charts</a></li>
+            <li><a href="charts-scatter.html">Scatter Plots</a></li>
+            <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <div class="ds-main-content">
+        <main class="container">
+          <!-- Intro -->
+          <section class="card">
+            <h2 style="margin-top: 0">Bar Chart</h2>
+            <p class="lead">
+              Bar charts visually compare values across categories by using
+              vertical or horizontal bars.
+            </p>
+          </section>
+
+          <!-- Chart Template -->
+          <section class="card" style="margin-top: var(--space-8)">
+            <h3>Bar Chart Template</h3>
+            <div id="bar-chart-container"></div>
+          </section>
+
+          <!-- Usage Guidelines -->
+          <section class="card" style="margin-top: var(--space-8)">
+            <h3>Usage Guidelines</h3>
+            <ul>
+              <li>
+                Use bar charts to compare quantities across different
+                categories.
+              </li>
+              <li>
+                Sort bars from largest to smallest when possible for clarity.
+              </li>
+              <li>Keep category labels short and readable.</li>
+              <li>Use consistent colors to represent similar types of data.</li>
+              <li>
+                Avoid using too many categories, which reduces readability.
+              </li>
+            </ul>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <!-- Chart Script -->
+    <script>
+      const barData = [
+        { source: "Solar", output: 120 },
+        { source: "Wind", output: 180 },
+        { source: "Hydro", output: 250 },
+        { source: "Geo", output: 45 },
+      ];
+
+      const margin = { top: 20, right: 20, bottom: 40, left: 50 };
+      const width = 600 - margin.left - margin.right;
+      const height = 400 - margin.top - margin.bottom;
+
+      const svg = d3
+        .select("#bar-chart-container")
+        .append("svg")
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr(
+          "viewBox",
+          `0 0 ${width + margin.left + margin.right} ${
+            height + margin.top + margin.bottom
+          }`
+        )
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      const xScale = d3
+        .scaleBand()
+        .domain(barData.map((d) => d.source))
+        .range([0, width])
+        .padding(0.4);
+
+      svg
+        .append("g")
+        .attr("transform", `translate(0,${height})`)
+        .call(d3.axisBottom(xScale));
+
+      const yScale = d3
+        .scaleLinear()
+        .domain([0, d3.max(barData, (d) => d.output)])
+        .range([height, 0]);
+
+      svg.append("g").call(d3.axisLeft(yScale));
+
+      svg
+        .selectAll("rect")
+        .data(barData)
+        .enter()
+        .append("rect")
+        .attr("x", (d) => xScale(d.source))
+        .attr("y", (d) => yScale(d.output))
+        .attr("width", xScale.bandwidth())
+        .attr("height", (d) => height - yScale(d.output))
+        .attr("fill", "var(--color-primary)");
+    </script>
+  </body>
+</html>

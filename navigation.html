@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Navigation – Ecovision Design System</title>
+    <link rel="stylesheet" href="styles.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Top Navigation Demo */
+      .top-nav-demo {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--color-primary);
+        color: var(--color-surface);
+        padding: var(--space-3) var(--space-6);
+        border-radius: var(--radius-lg);
+      }
+
+      .top-nav-demo__logo {
+        font-size: var(--fs-h4);
+        font-weight: var(--font-weight-semibold);
+        font-family: var(--font-family-serif);
+      }
+
+      .top-nav-demo nav a {
+        color: var(--color-surface);
+        text-decoration: none;
+        margin-left: var(--space-4);
+        font-size: var(--fs-body);
+      }
+
+      .top-nav-demo nav a:hover {
+        text-decoration: underline;
+      }
+
+      /* Breadcrumb Demo */
+      .breadcrumb-demo {
+        margin-bottom: var(--space-3);
+        font-size: var(--fs-body);
+      }
+
+      .breadcrumb-demo a {
+        color: var(--color-primary);
+        text-decoration: none;
+      }
+
+      .breadcrumb-demo span {
+        margin: 0 var(--space-1);
+        color: var(--color-muted);
+      }
+
+      .breadcrumb-demo .current {
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text);
+      }
+
+      .breadcrumb {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        font-size: var(--fs-small);
+      }
+
+      .breadcrumb li + li::before {
+        content: ">";
+        margin: 0 var(--space-2);
+        color: var(--color-muted);
+      }
+
+      .breadcrumb a {
+        text-decoration: none;
+        color: var(--color-primary);
+      }
+
+      .breadcrumb li[aria-current="page"] {
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text);
+      }
+
+      /* Sidebar Demo */
+      .sidebar-demo {
+        display: inline-block;
+        background: var(--color-surface);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--color-border);
+        padding: var(--space-4);
+        min-width: 180px;
+      }
+
+      .sidebar-demo__title {
+        font-size: var(--fs-label);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--color-muted);
+        margin-bottom: var(--space-2);
+      }
+
+      .sidebar-demo ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .sidebar-demo li + li {
+        margin-top: var(--space-2);
+      }
+
+      .sidebar-demo a {
+        text-decoration: none;
+        font-size: var(--fs-body);
+        color: var(--color-text);
+      }
+
+      .sidebar-demo a.sidebar-demo__link--active {
+        color: var(--color-primary);
+        font-weight: var(--font-weight-medium);
+      }
+
+      /* Code Block */
+      .code-block {
+        margin-top: var(--space-3);
+        background: var(--color-surface);
+        border-radius: var(--radius-lg);
+        padding: var(--space-4);
+        border: 1px solid var(--color-border);
+        font-family: "SFMono-Regular", ui-monospace, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        font-size: var(--fs-small);
+        overflow-x: auto;
+        white-space: pre;
+      }
+
+      .example {
+        margin: var(--space-3) 0 var(--space-4);
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="brand">
+          <span class="brand__dot" aria-hidden="true"></span>
+          <h1 class="site-title">Navigation</h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="ds-layout">
+      <aside class="ds-sidebar">
+        <nav aria-label="Design System Sections">
+          <h3>Foundation</h3>
+          <ul>
+            <li><a href="index.html">Overview</a></li>
+            <li><a href="colors.html">Colors</a></li>
+            <li><a href="typography.html">Typography</a></li>
+            <li><a href="layouts.html">Layouts</a></li>
+            <li><a href="spacing.html">Spacing</a></li>
+          </ul>
+
+          <h3>Components</h3>
+          <ul>
+            <li><a href="buttons.html">Buttons</a></li>
+            <li><a href="forms.html">Forms & Inputs</a></li>
+            <li><a href="cards.html">Cards</a></li>
+            <li>
+              <a href="navigation.html" aria-current="page">Navigation</a>
+            </li>
+            <li><a href="modals.html">Modals & Dialogs</a></li>
+            <li><a href="filters.html">Filters & Search</a></li>
+            <li><a href="interactive.html">Interactive</a></li>
+          </ul>
+
+          <h3>Data Visualization</h3>
+          <ul>
+            <li><a href="charts-line.html">Line & Area Charts</a></li>
+            <li><a href="charts-bar.html">Bar Charts</a></li>
+            <li><a href="charts-pie.html">Pie & Donut Charts</a></li>
+            <li><a href="charts-scatter.html">Scatter Plots</a></li>
+            <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <div class="ds-main-content">
+        <main class="container">
+          <section class="card">
+            <h2 style="margin-top: 0">Navigation Patterns</h2>
+            <p class="lead">
+              Navigation components help users understand where they are in the
+              dashboard and how to move between sections. This page documents
+              three core patterns: a top navigation bar, breadcrumbs, and a
+              sidebar menu.
+            </p>
+          </section>
+
+          <!-- Top Nav -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Top Navigation Bar</h3>
+            <p>
+              A top navigation bar is placed at the top of the application. It
+              usually contains the product name on the left and main links or
+              controls on the right.
+            </p>
+
+            <div class="example">
+              <div class="top-nav-demo">
+                <span class="top-nav-demo__logo">Ecovision</span>
+                <nav aria-label="Main navigation">
+                  <a href="#">Overview</a>
+                  <a href="#">Reports</a>
+                  <a href="#">Settings</a>
+                </nav>
+              </div>
+            </div>
+
+            <pre class="code-block"><code>&lt;div class="top-nav"&gt;
+  &lt;span class="top-nav__logo"&gt;Ecovision&lt;/span&gt;
+  &lt;nav aria-label="Main navigation"&gt;
+    &lt;a href="#"&gt;Overview&lt;/a&gt;
+    &lt;a href="#"&gt;Reports&lt;/a&gt;
+    &lt;a href="#"&gt;Settings&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/div&gt;</code></pre>
+          </section>
+
+          <!-- Breadcrumb -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Breadcrumbs</h3>
+            <p>
+              Breadcrumbs show the user's current location in the site
+              hierarchy. All but the last item are links; the last item
+              represents the current page.
+            </p>
+
+            <div class="example">
+              <div class="breadcrumb-demo">
+                <a href="#">Home</a>
+                <span>&gt;</span>
+                <a href="#">Analytics</a>
+                <span>&gt;</span>
+                <span class="current">Sales</span>
+              </div>
+            </div>
+
+            <pre class="code-block"><code>&lt;nav aria-label="Breadcrumb"&gt;
+  &lt;ol class="breadcrumb"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Analytics&lt;/a&gt;&lt;/li&gt;
+    &lt;li aria-current="page"&gt;Sales&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;</code></pre>
+          </section>
+
+          <!-- Sidebar Navigation -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Sidebar Navigation</h3>
+            <p>
+              A sidebar navigation provides a persistent menu on the side of the
+              dashboard. It is useful for switching between major sections such
+              as Dashboard, Reports, and Settings.
+            </p>
+
+            <div class="example">
+              <div class="sidebar-demo">
+                <div class="sidebar-demo__title">Sidebar Navigation</div>
+                <ul>
+                  <li>
+                    <a href="#" class="sidebar-demo__link--active">
+                      Dashboard
+                    </a>
+                  </li>
+                  <li><a href="#">Reports</a></li>
+                  <li><a href="#">Settings</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <pre class="code-block"><code>&lt;aside class="ds-sidebar"&gt;
+  &lt;nav aria-label="Sidebar navigation"&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Dashboard&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Reports&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Settings&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+&lt;/aside&gt;</code></pre>
+          </section>
+        </main>
+
+        <footer>
+          <div class="container">
+            <small>Ecovision · Navigation</small>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

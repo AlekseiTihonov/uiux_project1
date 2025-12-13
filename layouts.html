@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Layouts – Ecovision Design System</title>
+
+    <!-- Main styles -->
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Body font (Poppins) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: var(--font-family-serif) !important;
+      }
+
+      .demo-grid {
+        background: var(--color-surface);
+        padding: var(--space-4);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--color-border);
+        gap: var(--space-4);
+        margin-top: var(--space-3);
+      }
+
+      .demo-cell {
+        padding: var(--space-4);
+        background: var(--color-muted-bg);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-border);
+        text-align: center;
+        font-size: var(--fs-body);
+      }
+
+      .breakpoint-demo {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+      }
+
+      .breakpoint-item {
+        background: var(--color-muted-bg);
+        padding: var(--space-3);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-border);
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="brand">
+          <span class="brand__dot"></span>
+          <h1 class="site-title">Layouts</h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="ds-layout">
+      <!-- Sidebar -->
+      <aside class="ds-sidebar">
+        <nav aria-label="Design System Sections">
+          <h3>Foundation</h3>
+          <ul>
+            <li><a href="index.html">Overview</a></li>
+            <li><a href="colors.html">Colors</a></li>
+            <li><a href="typography.html">Typography</a></li>
+            <li><a href="layouts.html" aria-current="page">Layouts</a></li>
+            <li><a href="spacing.html">Spacing</a></li>
+          </ul>
+
+          <h3>Components</h3>
+          <ul>
+            <li><a href="buttons.html">Buttons</a></li>
+            <li><a href="forms.html">Forms & Inputs</a></li>
+            <li><a href="cards.html">Cards</a></li>
+            <li><a href="navigation.html">Navigation</a></li>
+            <li><a href="modals.html">Modals & Dialogs</a></li>
+            <li><a href="filters.html">Filters & Search</a></li>
+            <li><a href="interactive.html">Interactive</a></li>
+          </ul>
+
+          <h3>Data Visualization</h3>
+          <ul>
+            <li><a href="charts-line.html">Line & Area Charts</a></li>
+            <li><a href="charts-bar.html">Bar Charts</a></li>
+            <li><a href="charts-pie.html">Pie & Donut Charts</a></li>
+            <li><a href="charts-scatter.html">Scatter Plots</a></li>
+            <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- Main -->
+      <div class="ds-main-content">
+        <main class="container">
+          <!-- Intro -->
+          <section class="card">
+            <h2>Layout Systems & Grid Templates</h2>
+            <p class="lead">
+              Responsive layout patterns for environmental dashboards using CSS
+              Grid and Flexbox.
+            </p>
+          </section>
+
+          <!-- Grid System -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Grid System</h3>
+
+            <div class="card">
+              <h4>Equal Columns</h4>
+              <div class="grid cols-3 demo-grid">
+                <div class="demo-cell">Column 1</div>
+                <div class="demo-cell">Column 2</div>
+                <div class="demo-cell">Column 3</div>
+              </div>
+
+              <h4 style="margin-top: var(--space-6)">Asymmetric Columns</h4>
+              <div class="grid cols-asym demo-grid">
+                <div class="demo-cell">Main Content (2fr)</div>
+                <div class="demo-cell">Sidebar (1fr)</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Dashboard Layouts -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Dashboard Layout Patterns</h3>
+
+            <div class="card">
+              <h4>KPI Overview Layout</h4>
+
+              <div class="grid cols-4 demo-grid">
+                <div class="demo-cell">KPI 1</div>
+                <div class="demo-cell">KPI 2</div>
+                <div class="demo-cell">KPI 3</div>
+                <div class="demo-cell">KPI 4</div>
+              </div>
+
+              <div
+                class="grid cols-2 demo-grid"
+                style="margin-top: var(--space-4)"
+              >
+                <div class="demo-cell">Chart Area</div>
+                <div class="demo-cell">Data Table</div>
+              </div>
+            </div>
+
+            <div class="card" style="margin-top: var(--space-6)">
+              <h4>Detail Analysis Layout</h4>
+
+              <div class="grid cols-1-2 demo-grid">
+                <div class="demo-cell">Filters & Controls</div>
+                <div class="demo-cell">Main Visualization</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Breakpoints -->
+          <section style="margin-top: var(--space-8)">
+            <h3>Responsive Breakpoints</h3>
+
+            <div class="card">
+              <div class="breakpoint-demo">
+                <div class="breakpoint-item">
+                  <strong>Mobile:</strong> &lt; 768px
+                </div>
+                <div class="breakpoint-item">
+                  <strong>Tablet:</strong> 768px – 1024px
+                </div>
+                <div class="breakpoint-item">
+                  <strong>Desktop:</strong> &gt; 1024px
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+          <div class="container">
+            <small>Ecovision · Layouts</small>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

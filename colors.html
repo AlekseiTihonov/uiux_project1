@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Colors – CanJet Design System</title>
+    <link rel="stylesheet" href="styles.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="brand">
+          <span class="brand__dot" aria-hidden="true"></span>
+          <h1 class="site-title" style="font-family: var(--font-serif)">
+            Colors
+          </h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="ds-layout">
+      <aside class="ds-sidebar">
+        <nav aria-label="Design System Sections">
+          <h3>Foundation</h3>
+          <ul>
+            <li><a href="index.html">Overview</a></li>
+            <li>
+              <a href="colors.html" aria-current="page">Colors</a>
+            </li>
+            <li><a href="typography.html">Typography</a></li>
+            <li><a href="layouts.html">Layouts</a></li>
+            <li><a href="spacing.html">Spacing</a></li>
+          </ul>
+
+          <h3>Components</h3>
+          <ul>
+            <li><a href="buttons.html">Buttons</a></li>
+            <li><a href="forms.html">Forms & Inputs</a></li>
+            <li><a href="cards.html">Cards</a></li>
+            <li><a href="navigation.html">Navigation</a></li>
+            <li><a href="modals.html">Modals & Dialogs</a></li>
+            <li><a href="filters.html">Filters & Search</a></li>
+            <li><a href="interactive.html">Interactive</a></li>
+          </ul>
+
+          <h3>Data Visualization</h3>
+          <ul>
+            <li><a href="charts-line.html">Line & Area Charts</a></li>
+            <li><a href="charts-bar.html">Bar Charts</a></li>
+            <li><a href="charts-pie.html">Pie & Donut Charts</a></li>
+            <li><a href="charts-scatter.html">Scatter Plots</a></li>
+            <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <div class="ds-main-content">
+        <main class="container">
+          <section class="card" style="border-radius: 0">
+            <h2 style="margin-top: 0; font-family: var(--font-serif)">
+              Color System & Usage
+            </h2>
+            <p class="lead">
+              The CanJet brand uses a bold red triad palette representing
+              energy, passion, and excitement. These colors define buttons,
+              highlights, semantic states, and UI structure.
+            </p>
+          </section>
+
+          <!-- Brand Colors -->
+          <section style="margin-top: var(--space-8)">
+            <h3 style="font-family: var(--font-serif)">Brand</h3>
+            <div class="color-row">
+              <div class="swatch">
+                <div
+                  class="swatch__color"
+                  style="background: var(--color-primary)"
+                >
+                  Primary
+                </div>
+                <div class="swatch__body">
+                  <div class="swatch__hex">--color-primary: #ED1C24</div>
+                  <p class="typo-meta">Usage: primary actions, headers</p>
+                </div>
+              </div>
+
+              <div class="swatch">
+                <div
+                  class="swatch__color"
+                  style="background: var(--color-secondary)"
+                >
+                  Secondary
+                </div>
+                <div class="swatch__body">
+                  <div class="swatch__hex">--color-secondary: #F54748</div>
+                  <p class="typo-meta">Usage: accents, secondary states</p>
+                </div>
+              </div>
+
+              <div class="swatch">
+                <div
+                  class="swatch__color"
+                  style="background: var(--color-accent); color: #0f172a"
+                >
+                  Accent
+                </div>
+                <div class="swatch__body">
+                  <div class="swatch__hex">--color-accent: #F56F6C</div>
+                  <p class="typo-meta">Usage: highlights, info panels</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Semantic -->
+          <section style="margin-top: var(--space-8)">
+            <h3 style="font-family: var(--font-serif)">Semantic</h3>
+            <div class="color-row">
+              <div class="swatch">
+                <div
+                  class="swatch__color"
+                  style="background: var(--color-success)"
+                >
+                  Success
+                </div>
+                <div class="swatch__body">
+                  <div class="swatch__hex">--color-success: #22C55E</div>
+                  <p class="typo-meta">Positive trend or success state</p>
+                </div>
+              </div>
+
+              <div class="swatch">
+                <div
+                  class="swatch__color"
+                  style="background: var(--color-warning)"
+                >
+                  Warning
+                </div>
+                <div class="swatch__body">
+                  <div class="swatch__hex">--color-warning: #F59E0B</div>
+                  <p class="typo-meta">Caution or pending attention</p>
+                </div>
+              </div>
+
+              <div class="swatch">
+                <div
+                  class="swatch__color"
+                  style="background: var(--color-danger)"
+                >
+                  Danger
+                </div>
+                <div class="swatch__body">
+                  <div class="swatch__hex">--color-danger: #EF4444</div>
+                  <p class="typo-meta">Error or negative trend</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Neutrals -->
+          <section style="margin-top: var(--space-8)">
+            <h3 style="font-family: var(--font-serif)">Neutrals</h3>
+            <div class="color-row">
+              <div class="swatch">
+                <div
+                  class="swatch__color"
+                  style="background: var(--color-surface); color: #0f172a"
+                >
+                  Surface
+                </div>
+                <div class="swatch__body">
+                  <div class="swatch__hex">--color-surface: #FFFFFF</div>
+                  <p class="typo-meta">Cards, containers</p>
+                </div>
+              </div>
+
+              <div class="swatch">
+                <div
+                  class="swatch__color"
+                  style="background: var(--color-background); color: #0f172a"
+                >
+                  Background
+                </div>
+                <div class="swatch__body">
+                  <div class="swatch__hex">--color-background: #F9FAF9</div>
+                  <p class="typo-meta">Page background</p>
+                </div>
+              </div>
+
+              <div class="swatch">
+                <div
+                  class="swatch__color"
+                  style="background: var(--color-text)"
+                >
+                  Text
+                </div>
+                <div class="swatch__body">
+                  <div class="swatch__hex">--color-text: #1E293B</div>
+                  <p class="typo-meta">Text color</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <footer>
+          <div class="container">
+            <small>CanJet · Colors</small>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
