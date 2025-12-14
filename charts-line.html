@@ -3,19 +3,40 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Line & Area Charts – Ecovision Design System</title>
+    <title>Line  – Ecovision Design System</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="https://d3js.org/d3.v7.min.js"></script>
 
     <style>
-      #line-chart-container,
-      #area-chart-container {
+      .chart-container {
         padding: var(--space-6);
         background: var(--color-surface);
         border-radius: var(--radius-lg);
         box-shadow: var(--shadow-sm);
+        height: 400px;
+        overflow: hidden;
+        position: relative;
       }
-      #line-chart-container text, #area-chart-container text { font-family: "Georgia", serif; }
+
+      .chart-legend {
+        display: flex;
+        gap: 1.5rem;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        color: var(--color-text);
+      }
+      
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      .legend-line {
+        width: 20px;
+        height: 3px;
+        border-radius: 2px;
+      }
     </style>
   </head>
 
@@ -24,7 +45,7 @@
       <div class="container">
         <div class="brand">
           <span class="brand__dot" aria-hidden="true"></span>
-          <h1 class="site-title">Line & Area Charts</h1>
+          <h1 class="site-title">Line Charts</h1>
         </div>
       </div>
     </header>
@@ -56,10 +77,11 @@
           <ul>
             <li>
               <a href="charts-line.html" aria-current="page"
-                >Line & Area Charts</a
+                >Line Charts</a
               >
             </li>
             <li><a href="charts-bar.html">Bar Charts</a></li>
+            <li><a href="charts-area.html">Area Charts</a></li>
             <li><a href="charts-pie.html">Pie & Donut Charts</a></li>
             <li><a href="charts-scatter.html">Scatter Plots</a></li>
             <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
@@ -69,20 +91,36 @@
 
       <div class="ds-main-content">
         <main class="container">
-          <!-- Intro -->
           <section class="card">
-            <h2 style="margin-top: 0">Line & Area Charts</h2>
+            <h2 style="margin-top: 0">Line Charts</h2>
             <p class="lead">
-              Line charts show trends over time, while area charts add visual
-              emphasis to magnitude.
+              Line charts are designed to display trends and changes over time.
             </p>
           </section>
 
-          <!-- Line Chart -->
+          <!-- Normal Line Chart -->
           <section class="card" style="margin-top: var(--space-8)">
-            <h3>Example: Customer Happiness Index (Yearly)</h3>
-            <div id="line-chart-container"></div>
+            <h3>Normal Line Chart</h3>
+            <p>Compare trends across different categories over time.</p>
+            <div class="chart-legend">
+              <div class="legend-item"><span class="legend-line" style="background-color: var(--color-primary)"></span>Product A</div>
+              <div class="legend-item"><span class="legend-line" style="background-color: var(--color-secondary)"></span>Product B</div>
+              <div class="legend-item"><span class="legend-line" style="background-color: var(--color-accent)"></span>Product C</div>
+            </div>
+            <div id="normal-line-chart" class="chart-container"></div>
           </section>
+
+          <!-- Stacked Line Chart -->
+          <section class="card" style="margin-top: var(--space-8)">
+            <h3>Stacked Line Chart</h3>
+            <p>Shows cumulative totals. Each line is stacked on top of the previous one.</p>
+            <div class="chart-legend">
+              <div class="legend-item"><span class="legend-line" style="background-color: var(--color-primary)"></span>Product A</div>
+              <div class="legend-item"><span class="legend-line" style="background-color: var(--color-secondary)"></span>Product B</div>
+              <div class="legend-item"><span class="legend-line" style="background-color: var(--color-accent)"></span>Product C</div>
+            </div>
+            <div id="stacked-line-chart" class="chart-container"></div>
+            </section>
 
           <!-- Usage Guidelines -->
           <section style="margin-top: var(--space-8)">
@@ -119,58 +157,117 @@
 
     <!-- LINE CHART SCRIPT -->
     <script>
-      const lineData = [
-        { year: new Date("2020-01-01"), score: 70 },
-        { year: new Date("2021-01-01"), score: 75 },
-        { year: new Date("2022-01-01"), score: 72 },
-        { year: new Date("2023-01-01"), score: 85 },
-        { year: new Date("2024-01-01"), score: 92 },
+      const data = [
+        { date: new Date(2023, 0, 1),  A: 20, B: 60, C: 15 },
+        { date: new Date(2023, 1, 1),  A: 25, B: 55, C: 20 },
+        { date: new Date(2023, 2, 1),  A: 30, B: 45, C: 25 },
+        { date: new Date(2023, 3, 1),  A: 35, B: 35, C: 30 }, 
+        { date: new Date(2023, 4, 1),  A: 45, B: 25, C: 40 }, 
+        { date: new Date(2023, 5, 1),  A: 50, B: 20, C: 35 },
+        { date: new Date(2023, 6, 1),  A: 60, B: 25, C: 30 },
+        { date: new Date(2023, 7, 1),  A: 65, B: 35, C: 25 },
+        { date: new Date(2023, 8, 1),  A: 70, B: 50, C: 20 }, 
+        { date: new Date(2023, 9, 1),  A: 75, B: 60, C: 15 },
+        { date: new Date(2023, 10, 1), A: 80, B: 65, C: 20 },
+        { date: new Date(2023, 11, 1), A: 85, B: 70, C: 25 }
       ];
 
-      const margin = { top: 20, right: 20, bottom: 50, left: 50 };
-      const width = 600 - margin.left - margin.right;
-      const height = 400 - margin.top - margin.bottom;
+      const colors = ["var(--color-primary)", "var(--color-secondary)", "var(--color-accent)"];
+      const keys = ['A', 'B', 'C'];
 
-      const svgLine = d3
-        .select("#line-chart-container")
-        .append("svg")
-        .attr("width", "100%")
-        .attr("height", "100%")
-        .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
-        .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
+      const margin = { top: 20, right: 30, bottom: 40, left: 40 };
+      const width = 800;
+      const height = 400;
+      const innerWidth = width - margin.left - margin.right;
+      const innerHeight = height - margin.top - margin.bottom;
 
-      const xScale = d3
-        .scaleTime()
-        .domain(d3.extent(lineData, (d) => d.year))
-        .range([0, width]);
+      function drawNormalLine() {
+        const svg = d3.select("#normal-line-chart")
+          .append("svg")
+          .attr("viewBox", `0 0 ${width} ${height}`)
+          .attr("preserveAspectRatio", "xMidYMid meet")
+          .style("width", "100%")
+          .style("height", "100%")
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
 
-      svgLine
-        .append("g")
-        .attr("transform", `translate(0, ${height})`)
-        .call(d3.axisBottom(xScale).ticks(5));
+        const x = d3.scaleTime().domain(d3.extent(data, d => d.date)).range([0, innerWidth]);
+        const y = d3.scaleLinear().domain([0, 100]).range([innerHeight, 0]);
 
-      const yScale = d3
-        .scaleLinear()
-        .domain([60, 100])
-        .range([height, 0]);
+        const xAxis = d3.axisBottom(x).ticks(6).tickSize(0).tickPadding(10);
+        const yAxis = d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(10);
 
-      svgLine
-        .append("g")
-        .call(d3.axisLeft(yScale));
+        svg.append("g")
+          .attr("transform", `translate(0,${innerHeight})`)
+          .call(xAxis)
+          .call(g => g.select(".domain").attr("stroke", "var(--color-border)"));
 
-      const line = d3
-        .line()
-        .x((d) => xScale(d.year))
-        .y((d) => yScale(d.score));
+        svg.append("g")
+          .call(yAxis)
+          .call(g => g.select(".domain").remove());
 
-      svgLine
-        .append("path")
-        .datum(lineData)
-        .attr("fill", "none")
-        .attr("stroke", "var(--color-primary)")
-        .attr("stroke-width", 3)
-        .attr("d", line);
+        const line = d3.line()
+          .x(d => x(d.date))
+          .y(d => y(d.value))
+          .curve(d3.curveMonotoneX);
+
+        keys.forEach((key, index) => {
+           const singleSeries = data.map(d => ({ date: d.date, value: d[key] }));
+           
+           svg.append("path")
+             .datum(singleSeries)
+             .attr("fill", "none")
+             .attr("stroke", colors[index])
+             .attr("stroke-width", 3)
+             .attr("d", line);
+        });
+      }
+
+      function drawStackedLine() {
+        const svg = d3.select("#stacked-line-chart")
+          .append("svg")
+          .attr("viewBox", `0 0 ${width} ${height}`)
+          .attr("preserveAspectRatio", "xMidYMid meet")
+          .style("width", "100%")
+          .style("height", "100%")
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        const stack = d3.stack().keys(keys);
+        const stackedData = stack(data);
+
+        const x = d3.scaleTime().domain(d3.extent(data, d => d.date)).range([0, innerWidth]);
+        const yMax = d3.max(stackedData, layer => d3.max(layer, d => d[1]));
+        const y = d3.scaleLinear().domain([0, yMax * 1.1]).range([innerHeight, 0]);
+
+        const xAxis = d3.axisBottom(x).ticks(6).tickSize(0).tickPadding(10);
+        const yAxis = d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(10);
+
+        svg.append("g")
+          .attr("transform", `translate(0,${innerHeight})`)
+          .call(xAxis)
+          .call(g => g.select(".domain").attr("stroke", "var(--color-border)"));
+
+        svg.append("g")
+          .call(yAxis)
+          .call(g => g.select(".domain").remove());
+
+        const line = d3.line()
+          .x(d => x(d.data.date))
+          .y(d => y(d[1]))
+          .curve(d3.curveMonotoneX);
+
+        svg.selectAll(".layer-line")
+          .data(stackedData)
+          .enter().append("path")
+          .attr("fill", "none")
+          .attr("stroke", (d, i) => colors[i])
+          .attr("stroke-width", 3)
+          .attr("d", line);
+      }
+
+      drawNormalLine();
+      drawStackedLine();
     </script>
   </body>
 </html>

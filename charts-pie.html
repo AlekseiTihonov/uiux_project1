@@ -8,15 +8,24 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
 
     <style>
-      #pie-chart-container {
+      .chart-container {
         padding: var(--space-6);
         background: var(--color-surface);
         border-radius: var(--radius-lg);
-        box-shadow: var(--shadow-sm);
         display: flex;
         justify-content: center;
+        align-items: center;
+        height: 400px; 
+        overflow: hidden;
       }
-      #pie-chart-container text { font-family: "Georgia", serif; }
+      
+      .chart-label {
+        font-size: 14px;
+        font-weight: 600;
+        fill: #ffffff;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        pointer-events: none;
+      }
     </style>
   </head>
 
@@ -55,13 +64,10 @@
 
           <h3>Data Visualization</h3>
           <ul>
-            <li><a href="charts-line.html">Line & Area Charts</a></li>
+            <li><a href="charts-line.html">Line Charts</a></li>
+            <li><a href="charts-area.html">Area Charts</a></li>
             <li><a href="charts-bar.html">Bar Charts</a></li>
-            <li>
-              <a href="charts-pie.html" aria-current="page"
-                >Pie & Donut Charts</a
-              >
-            </li>
+            <li><a href="charts-pie.html" aria-current="page">Pie & Donut Charts</a></li>
             <li><a href="charts-scatter.html">Scatter Plots</a></li>
             <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
           </ul>
@@ -70,50 +76,40 @@
 
       <div class="ds-main-content">
         <main class="container">
-          <!-- Intro -->
           <section class="card">
             <h2 style="margin-top: 0">Pie & Donut Charts</h2>
             <p class="lead">
-              Use pie and donut charts to compare parts of a whole. They work
-              best with a small number of categories.
+              Use pie and donut charts to compare parts of a whole. They work best with a small number of categories (3-5).
             </p>
           </section>
 
-          <!-- Chart Example -->
           <section class="card" style="margin-top: var(--space-8)">
-            <h3>Example: Incoming Tickets by Reason</h3>
-            <div id="pie-chart-container"></div>
+            <h3>Pie Chart</h3>
+            <p>A classic circular chart divided into sectors, illustrating numerical proportion.</p>
+            <div id="pie-chart" class="chart-container"></div>
           </section>
 
-          <!-- Usage Guidelines -->
+          <section class="card" style="margin-top: var(--space-8)">
+            <h3>Donut Chart</h3>
+            <p>Ideally used when you want to include a total value or other summary info in the center.</p>
+            <div id="donut-chart" class="chart-container"></div>
+          </section>
+
           <section style="margin-top: var(--space-8)">
             <h3>Usage Guidelines</h3>
             <div class="card">
               <h4>When to Use</h4>
               <ul>
                 <li>To show proportions within a whole.</li>
-                <li>To compare 3–6 categories.</li>
-                <li>When differences between segments are meaningful.</li>
-              </ul>
-
-              <h4>When Not to Use</h4>
-              <ul>
-                <li>If categories are too many or too similar in size.</li>
-                <li>
-                  When exact values must be compared — use a bar chart instead.
-                </li>
-                <li>For time-series data or trends.</li>
+                <li>To compare 3–5 categories max.</li>
+                <li>When differences between segments are clearly visible.</li>
               </ul>
 
               <h4>Best Practices</h4>
               <ul>
-                <li>Use clear, distinguishable colors for each segment.</li>
-                <li>Sort slices from largest to smallest when appropriate.</li>
-                <li>Use labels or a legend for clarity.</li>
-                <li>
-                  Donut charts work well when emphasizing the center text (e.g.,
-                  total value).
-                </li>
+                <li>Start the first slice at 12 o'clock (top).</li>
+                <li>Sort slices from largest to smallest clockwise.</li>
+                <li>Use a Donut chart if you need to display the total number.</li>
               </ul>
             </div>
           </section>
@@ -121,66 +117,115 @@
       </div>
     </div>
 
-    <!-- PIE CHART SCRIPT -->
     <script>
-      const pieData = [
-        { source: "Baggage", percent: 35 },
-        { source: "Booking", percent: 25 },
-        { source: "Refunds", percent: 20 },
-        { source: "Info", percent: 20 },
+      const data = [
+        { label: "Product A", value: 40 },
+        { label: "Product B", value: 25 },
+        { label: "Product C", value: 20 },
+        { label: "Product D", value: 15 }
       ];
 
-      const width = 450;
-      const height = 450;
+      const colorDomain = data.map(d => d.label);
+      const colorRange = [
+        "var(--color-primary)",  
+        "var(--color-secondary)", 
+        "var(--color-accent)",    
+        "var(--color-success)"    
+      ];
+      const color = d3.scaleOrdinal().domain(colorDomain).range(colorRange);
+
+      const width = 400;
+      const height = 400;
       const margin = 40;
       const radius = Math.min(width, height) / 2 - margin;
 
-      const svg = d3
-        .select("#pie-chart-container")
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .append("g")
-        .attr("transform", `translate(${width / 2}, ${height / 2})`);
+      // Pie chart
+      function drawPieChart() {
+        const svg = d3.select("#pie-chart")
+          .append("svg")
+          .attr("width", width)
+          .attr("height", height)
+          .append("g")
+          .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
-      const color = d3
-        .scaleOrdinal()
-        .domain(pieData.map((d) => d.source))
-        .range(["var(--color-primary)", "var(--color-secondary)", "var(--color-warning)", "var(--color-accent)"]);
+        const pie = d3.pie().value(d => d.value).sort(null); 
+        const data_ready = pie(data);
 
-      const pie = d3
-        .pie()
-        .value((d) => d.percent)
-        .sort(null);
 
-      const data_ready = pie(pieData);
-      
-      const arc = d3
-        .arc()
-        .innerRadius(radius * 0.45)
-        .outerRadius(radius);
+        const arc = d3.arc().innerRadius(0).outerRadius(radius);
 
-      svg
-        .selectAll("path")
-        .data(data_ready)
-        .enter()
-        .append("path")
-        .attr("d", arc)
-        .attr("fill", (d) => color(d.data.source))
-        .attr("stroke", "white")
-        .style("stroke-width", "2px");
 
-      svg
-        .selectAll("text")
-        .data(data_ready)
-        .enter()
-        .append("text")
-        .text((d) => `${d.data.source}`)
-        .attr("transform", (d) => `translate(${arc.centroid(d)})`)
-        .style("text-anchor", "middle")
-        .style("font-size", "14px")
-        .style("font-weight", "500")
-        .style("fill", "white");
+        svg.selectAll("path")
+          .data(data_ready)
+          .join("path")
+          .attr("d", arc)
+          .attr("fill", d => color(d.data.label))
+          .attr("stroke", "white")
+          .style("stroke-width", "2px");
+
+
+        svg.selectAll("text")
+          .data(data_ready)
+          .join("text")
+          .text(d => `${d.data.value}%`) 
+          .attr("transform", d => `translate(${arc.centroid(d)})`)
+          .style("text-anchor", "middle")
+          .attr("class", "chart-label");
+      }
+
+      // Donut chart
+      function drawDonutChart() {
+        const svg = d3.select("#donut-chart")
+          .append("svg")
+          .attr("width", width)
+          .attr("height", height)
+          .append("g")
+          .attr("transform", `translate(${width / 2}, ${height / 2})`);
+
+        const pie = d3.pie().value(d => d.value).sort(null);
+        const data_ready = pie(data);
+
+
+        const arc = d3.arc().innerRadius(radius * 0.55).outerRadius(radius); 
+
+
+        svg.selectAll("path")
+          .data(data_ready)
+          .join("path")
+          .attr("d", arc)
+          .attr("fill", d => color(d.data.label))
+          .attr("stroke", "white")
+          .style("stroke-width", "2px");
+
+
+        svg.selectAll("text")
+          .data(data_ready)
+          .join("text")
+          .text(d => `${d.data.value}%`)
+          .attr("transform", d => `translate(${arc.centroid(d)})`)
+          .style("text-anchor", "middle")
+          .attr("class", "chart-label");
+
+
+        svg.append("text")
+          .text("Total")
+          .attr("dy", "-0.5em")
+          .style("text-anchor", "middle")
+          .style("font-size", "16px")
+          .style("fill", "var(--color-muted)");
+        
+        svg.append("text")
+          .text("100%")
+          .attr("dy", "1em")
+          .style("text-anchor", "middle")
+          .style("font-size", "24px")
+          .style("font-weight", "bold")
+          .style("fill", "var(--color-text)");
+      }
+
+      drawPieChart();
+      drawDonutChart();
+
     </script>
   </body>
 </html>

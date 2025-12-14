@@ -7,7 +7,32 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
-      #bar-chart-container text { font-family: "Georgia", serif; }
+      .chart-container {
+        padding: var(--space-6);
+        background: var(--color-surface);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-sm);
+        height: 400px;
+        overflow: hidden; 
+        position: relative;
+      }
+      .chart-legend {
+        display: flex;
+        gap: 1.5rem;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        color: var(--color-text);
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .legend-box {
+        width: 16px;
+        height: 16px;
+        border-radius: 2px;
+      }
     </style>
   </head>
 
@@ -46,10 +71,11 @@
 
           <h3>Data Visualization</h3>
           <ul>
-            <li><a href="charts-line.html">Line & Area Charts</a></li>
+            <li><a href="charts-line.html">Line Charts</a></li>
             <li>
               <a href="charts-bar.html" aria-current="page">Bar Charts</a>
             </li>
+            <li><a href="charts-area.html">Area Charts</a></li>
             <li><a href="charts-pie.html">Pie & Donut Charts</a></li>
             <li><a href="charts-scatter.html">Scatter Plots</a></li>
             <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
@@ -59,35 +85,65 @@
 
       <div class="ds-main-content">
         <main class="container">
-          <!-- Intro -->
           <section class="card">
-            <h2 style="margin-top: 0">Bar Chart</h2>
-            <p class="lead">Bar charts are effective for comparing categories.</p>
+            <h2 style="margin-top: 0">Bar Charts</h2>
+            <p class="lead">
+              Bar charts are effective for comparing quantities across different categories.
+            </p>
           </section>
 
-          <!-- Chart Template -->
           <section class="card" style="margin-top: var(--space-8)">
-            <h3>Positive Feedback Count (Last Month)</h3>
-            <div id="bar-chart-container"></div>
+            <h3>Normal Bar Chart</h3>
+            <p>Compares individual values for each category side-by-side.</p>
+            
+            <div class="chart-legend">
+              <div class="legend-item"><span class="legend-box" style="background-color: var(--color-primary)"></span>Product A</div>
+              <div class="legend-item"><span class="legend-box" style="background-color: var(--color-secondary)"></span>Product B</div>
+              <div class="legend-item"><span class="legend-box" style="background-color: var(--color-accent)"></span>Product C</div>
+            </div>
+
+            <div id="grouped-bar-chart" class="chart-container"></div>
           </section>
 
-          <!-- Usage Guidelines -->
           <section class="card" style="margin-top: var(--space-8)">
+            <h3>Stacked Bar Chart</h3>
+            <p>Shows the total value while breaking down the contribution of each category.</p>
+            
+            <div class="chart-legend">
+              <div class="legend-item"><span class="legend-box" style="background-color: var(--color-primary)"></span>Product A</div>
+              <div class="legend-item"><span class="legend-box" style="background-color: var(--color-secondary)"></span>Product B</div>
+              <div class="legend-item"><span class="legend-box" style="background-color: var(--color-accent)"></span>Product C</div>
+            </div>
+
+            <div id="stacked-bar-chart" class="chart-container"></div>
+          </section>
+
+          <section class="card" style="margin-top: var(--space-8)">
+            <h3>Horizontal Bar Chart</h3>
+            <p>Ideal for ranking categories or when labels are long.</p>
+            <div id="horizontal-bar-chart" class="chart-container"></div>
+          </section>
+
+          <section style="margin-top: var(--space-8)">
             <h3>Usage Guidelines</h3>
-            <ul>
-              <li>
-                Use bar charts to compare quantities across different
-                categories.
-              </li>
-              <li>
-                Sort bars from largest to smallest when possible for clarity.
-              </li>
-              <li>Keep category labels short and readable.</li>
-              <li>Use consistent colors to represent similar types of data.</li>
-              <li>
-                Avoid using too many categories, which reduces readability.
-              </li>
-            </ul>
+            <div class="card">
+              
+              <h4>When to Use</h4>
+              <ul>
+                <li><strong>Grouped Bar:</strong> To compare individual values side-by-side (e.g., sales per month).</li>
+                <li><strong>Stacked Bar:</strong> When the total value is as important as its parts (e.g., total revenue split by product).</li>
+                <li><strong>Horizontal Bar:</strong> When category labels are long or when ranking items (e.g., Top 5 Products).</li>
+              </ul>
+
+              <h4 style="margin-top: 1.5rem;">Best Practices</h4>
+              <ul>
+                <li><strong>Start at Zero:</strong> Always start the y-axis at 0 to avoid distorting the data comparisons.</li>
+                <li><strong>Sorting:</strong> Sort horizontal bars by value (largest to smallest) to make ranking clear.</li>
+                <li><strong>Limit Categories:</strong> Avoid comparing more than 5-7 groups at once to keep the chart readable.</li>
+                <li><strong>Consistent Colors:</strong> Use the same color for the same category across all charts.</li>
+              </ul>
+              
+            </div>
           </section>
         </main>
       </div>
@@ -95,56 +151,167 @@
 
     <!-- Chart Script -->
     <script>
-      const barData = [
-        { source: "Service", output: 450 },
-        { source: "Punctuality", output: 320 },
-        { source: "Comfort", output: 210 },
-        { source: "Food", output: 180 },
+      const data = [
+        { month: "Jan", A: 40, B: 25, C: 15 },
+        { month: "Feb", A: 45, B: 30, C: 18 },
+        { month: "Mar", A: 35, B: 35, C: 20 },
+        { month: "Apr", A: 50, B: 40, C: 25 },
+        { month: "May", A: 55, B: 38, C: 30 },
+        { month: "Jun", A: 60, B: 45, C: 35 }
       ];
 
-      const margin = { top: 20, right: 20, bottom: 40, left: 50 };
-      const width = 600 - margin.left - margin.right;
-      const height = 400 - margin.top - margin.bottom;
+      const colors = ["var(--color-primary)", "var(--color-secondary)", "var(--color-accent)"];
+      const keys = ["A", "B", "C"];
+      const subgroups = keys;
+      const groups = data.map(d => d.month);
 
-      const svg = d3
-        .select("#bar-chart-container")
-        .append("svg")
-        .attr("width", "100%")
-        .attr("height", "100%")
-        .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
-        .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
+      const margin = { top: 20, right: 20, bottom: 40, left: 40 };
+      const width = 800; 
+      const height = 400;
+      const innerWidth = width - margin.left - margin.right;
+      const innerHeight = height - margin.top - margin.bottom;
 
-      const xScale = d3
-        .scaleBand()
-        .domain(barData.map((d) => d.source))
-        .range([0, width])
-        .padding(0.4);
+      // grouped bar chart
+      function drawGroupedBar() {
+        const svg = d3.select("#grouped-bar-chart")
+          .append("svg")
+          .attr("viewBox", `0 0 ${width} ${height}`)
+          .attr("preserveAspectRatio", "xMidYMid meet")
+          .style("width", "100%")
+          .style("height", "100%")
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
 
-      svg
-        .append("g")
-        .attr("transform", `translate(0,${height})`)
-        .call(d3.axisBottom(xScale));
+        const x0 = d3.scaleBand().domain(groups).range([0, innerWidth]).padding(0.2);
+        const x1 = d3.scaleBand().domain(subgroups).range([0, x0.bandwidth()]).padding(0.05);
+        const y = d3.scaleLinear().domain([0, 80]).range([innerHeight, 0]);
 
-      const yScale = d3
-        .scaleLinear()
-        .domain([0, 500])
-        .range([height, 0]);
+        svg.append("g")
+          .attr("transform", `translate(0,${innerHeight})`)
+          .call(d3.axisBottom(x0).tickSize(0).tickPadding(10))
+          .call(g => g.select(".domain").attr("stroke", "var(--color-border)"));
 
-      svg
-        .append("g")
-        .call(d3.axisLeft(yScale));
+        svg.append("g")
+          .call(d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(10))
+          .call(g => g.select(".domain").remove());
 
-      svg
-        .selectAll("rect")
-        .data(barData)
-        .enter()
-        .append("rect")
-        .attr("x", (d) => xScale(d.source))
-        .attr("y", (d) => yScale(d.output))
-        .attr("width", xScale.bandwidth())
-        .attr("height", (d) => height - yScale(d.output))
-        .attr("fill", "var(--color-primary)");
+        svg.append("g")
+          .selectAll("g")
+          .data(data)
+          .join("g")
+          .attr("transform", d => `translate(${x0(d.month)},0)`)
+          .selectAll("rect")
+          .data(d => subgroups.map(key => ({key: key, value: d[key]})))
+          .join("rect")
+          .attr("x", d => x1(d.key))
+          .attr("y", d => y(d.value))
+          .attr("width", x1.bandwidth())
+          .attr("height", d => innerHeight - y(d.value))
+          .attr("fill", d => {
+             if (d.key === 'A') return colors[0];
+             if (d.key === 'B') return colors[1];
+             return colors[2];
+          });
+      }
+
+      // stacked bar chart
+      function drawStackedBar() {
+        const svg = d3.select("#stacked-bar-chart")
+          .append("svg")
+          .attr("viewBox", `0 0 ${width} ${height}`)
+          .attr("preserveAspectRatio", "xMidYMid meet")
+          .style("width", "100%")
+          .style("height", "100%")
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        const stack = d3.stack().keys(keys);
+        const stackedData = stack(data);
+
+        const x = d3.scaleBand().domain(groups).range([0, innerWidth]).padding(0.3); 
+        const yMax = d3.max(stackedData, layer => d3.max(layer, d => d[1]));
+        const y = d3.scaleLinear().domain([0, yMax * 1.1]).range([innerHeight, 0]);
+
+        svg.append("g")
+          .attr("transform", `translate(0,${innerHeight})`)
+          .call(d3.axisBottom(x).tickSize(0).tickPadding(10))
+          .call(g => g.select(".domain").attr("stroke", "var(--color-border)"));
+
+        svg.append("g")
+          .call(d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(10))
+          .call(g => g.select(".domain").remove());
+
+        svg.append("g")
+          .selectAll("g")
+          .data(stackedData)
+          .join("g")
+          .attr("fill", (d, i) => colors[i])
+          .selectAll("rect")
+          .data(d => d)
+          .join("rect")
+          .attr("x", d => x(d.data.month))
+          .attr("y", d => y(d[1]))
+          .attr("height", d => y(d[0]) - y(d[1]))
+          .attr("width", x.bandwidth());
+      }
+
+      // horizontal bar chart
+      function drawHorizontalBar() {
+        const totals = keys.map(key => {
+            return {
+                label: "Product " + key,
+                value: data.reduce((acc, curr) => acc + curr[key], 0)
+            };
+        });
+
+        const svg = d3.select("#horizontal-bar-chart")
+          .append("svg")
+          .attr("viewBox", `0 0 ${width} ${height}`)
+          .attr("preserveAspectRatio", "xMidYMid meet")
+          .style("width", "100%")
+          .style("height", "100%")
+          .append("g")
+          .attr("transform", `translate(80, ${margin.top})`); 
+
+        const h_innerWidth = width - 80 - margin.right; 
+
+        const x = d3.scaleLinear().domain([0, d3.max(totals, d => d.value) * 1.1]).range([0, h_innerWidth]);
+        const y = d3.scaleBand().domain(totals.map(d => d.label)).range([0, innerHeight]).padding(0.4);
+
+        svg.append("g")
+          .attr("transform", `translate(0,${innerHeight})`)
+          .call(d3.axisBottom(x).ticks(5).tickSize(0).tickPadding(10))
+          .call(g => g.select(".domain").attr("stroke", "var(--color-border)"));
+
+        svg.append("g")
+          .call(d3.axisLeft(y).tickSize(0).tickPadding(10))
+          .call(g => g.select(".domain").remove())
+          .style("font-size", "14px"); 
+
+        svg.selectAll("rect")
+          .data(totals)
+          .join("rect")
+          .attr("x", x(0))
+          .attr("y", d => y(d.label))
+          .attr("width", d => x(d.value))
+          .attr("height", y.bandwidth())
+          .attr("fill", (d, i) => colors[i]); 
+
+        svg.selectAll(".value-label")
+          .data(totals)
+          .join("text")
+          .attr("class", "value-label")
+          .attr("x", d => x(d.value) + 10)
+          .attr("y", d => y(d.label) + y.bandwidth() / 2)
+          .attr("dy", "0.35em")
+          .text(d => d.value)
+          .style("font-family", "Georgia, serif")
+          .style("fill", "var(--color-text)");
+      }
+
+      drawGroupedBar();
+      drawStackedBar();
+      drawHorizontalBar();
     </script>
   </body>
 </html>

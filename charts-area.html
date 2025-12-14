@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Area Charts</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        /* Стили для легенды */
+        .chart-legend {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--color-text);
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+        /* ВАЖНО: Фиксируем контейнеры графиков, чтобы они не вылезали */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px; /* Фиксированная высота контейнера */
+            overflow: hidden; /* Обрезаем все, что пытается вылезти */
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="brand">
+                <span class="brand__dot" aria-hidden="true"></span>
+                <h1 class="site-title">Area Charts</h1>
+            </div>
+        </div>
+    </header>
+    <div class="ds-layout">
+        <aside class="ds-sidebar">
+          <nav aria-label="Design System Sections">
+            <h3>Foundation</h3>
+            <ul>
+              <li><a href="index.html">Overview</a></li>
+              <li><a href="colors.html">Colors</a></li>
+              <li><a href="typography.html">Typography</a></li>
+              <li><a href="layouts.html">Layouts</a></li>
+              <li><a href="spacing.html">Spacing</a></li>
+            </ul>
+
+            <h3>Components</h3>
+            <ul>
+              <li><a href="buttons.html">Buttons</a></li>
+              <li><a href="forms.html">Forms & Inputs</a></li>
+              <li><a href="cards.html">Cards</a></li>
+              <li><a href="navigation.html">Navigation</a></li>
+              <li><a href="modals.html">Modals & Dialogs</a></li>
+              <li><a href="filters.html">Filters & Search</a></li>
+              <li><a href="interactive.html">Interactive</a></li>
+            </ul>
+
+            <h3>Data Visualization</h3>
+            <ul>
+              <li><a href="charts-line.html">Line Charts</a></li>
+              <li>
+                <a href="charts-bar.html" >Bar Charts</a>
+              </li>
+              <li><a href="charts-area.html" aria-current="page">Area Charts</a></li>
+              <li><a href="charts-pie.html">Pie & Donut Charts</a></li>
+              <li><a href="charts-scatter.html">Scatter Plots</a></li>
+              <li><a href="charts-single.html">Single Value (KPI) Charts</a></li>
+            </ul>
+          </nav>
+        </aside>
+        <div class="ds-main-content">
+            <main class="container">
+                <section class="card">
+                  <h2 style="margin-top: 0">Area Charts</h2>
+                  <p class="lead">
+                    Area charts emphasize the magnitude of change over time.
+                  </p>
+                </section>
+
+                <section class="card" style="margin-top: var(--space-8)">
+                    <h2 style="margin-top: 0">Normal Area Chart</h2>
+                    <p class="lead">Shows trends over time with transparent overlapping areas.</p>
+                    
+                    <div class="chart-legend">
+                        <div class="legend-item"><span class="legend-color" style="background-color: var(--color-primary)"></span>Product A</div>
+                        <div class="legend-item"><span class="legend-color" style="background-color: var(--color-secondary)"></span>Product B</div>
+                        <div class="legend-item"><span class="legend-color" style="background-color: var(--color-accent)"></span>Product C</div>
+                    </div>
+
+                    <div id="normal-area-chart" class="chart-container"></div>
+                </section>
+
+                <section class="card" style="margin-top: var(--space-8)">
+                    <h2>Stacked Area Chart</h2>
+                    <p class="lead">Shows the cumulative contribution of each category to the total.</p>
+                    
+                    <div id="stacked-area-chart" class="chart-container"></div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const data = [
+            { date: new Date(2023, 0, 1),  A: 60, B: 35, C: 20 }, 
+            { date: new Date(2023, 1, 1),  A: 65, B: 38, C: 22 }, 
+            { date: new Date(2023, 2, 1),  A: 72, B: 40, C: 25 }, 
+            { date: new Date(2023, 3, 1),  A: 68, B: 42, C: 28 }, 
+            { date: new Date(2023, 4, 1),  A: 75, B: 45, C: 30 }, 
+            { date: new Date(2023, 5, 1),  A: 85, B: 50, C: 35 }, 
+            { date: new Date(2023, 6, 1),  A: 92, B: 48, C: 32 }, 
+            { date: new Date(2023, 7, 1),  A: 88, B: 55, C: 30 }, 
+            { date: new Date(2023, 8, 1),  A: 82, B: 58, C: 28 }, 
+            { date: new Date(2023, 9, 1),  A: 86, B: 52, C: 35 }, 
+            { date: new Date(2023, 10, 1), A: 95, B: 48, C: 40 }, 
+            { date: new Date(2023, 11, 1), A: 98, B: 45, C: 45 }  
+        ];
+
+        const styles = getComputedStyle(document.documentElement);
+        const colorPrimary = styles.getPropertyValue('--color-primary').trim();
+        const colorSecondary = styles.getPropertyValue('--color-secondary').trim();
+        const colorAccent = styles.getPropertyValue('--color-accent').trim();
+        const colors = [colorPrimary, colorSecondary, colorAccent];
+        const keys = ['A', 'B', 'C'];
+
+        const width = 800; 
+        const height = 350;
+        const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+
+        const innerWidth = width - margin.left - margin.right;
+        const innerHeight = height - margin.top - margin.bottom;
+
+        // normal area chart
+        function drawNormalArea() {
+            const svg = d3.select("#normal-area-chart")
+                .append("svg")
+                .attr("viewBox", `0 0 ${width} ${height}`)
+                .attr("preserveAspectRatio", "xMidYMid meet")
+                .style("width", "100%")
+                .style("height", "100%")
+                .append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleTime()
+                .domain(d3.extent(data, d => d.date))
+                .range([0, innerWidth]);
+
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(data, d => Math.max(d.A, d.B, d.C)) * 1.2]) 
+                .range([innerHeight, 0]);
+
+            const xAxis = d3.axisBottom(x).ticks(6).tickSize(5).tickPadding(10);
+            const yAxis = d3.axisLeft(y).ticks(5).tickSize(5).tickPadding(10);
+
+            svg.append("g")
+                .attr("transform", `translate(0,${innerHeight})`)
+                .call(xAxis)
+                .call(g => g.select(".domain").attr("stroke", "var(--color-border)"))
+                .style("color", "var(--color-muted)"); 
+
+            svg.append("g")
+                .call(yAxis)
+                .call(g => g.select(".domain"))
+                .style("color", "var(--color-muted)");
+
+            const area = d3.area()
+                .x(d => x(d.date))
+                .y0(innerHeight) 
+                .y1(d => y(d.value))
+                .curve(d3.curveMonotoneX);
+
+            keys.forEach((key, index) => {
+                const singleSeries = data.map(d => ({ date: d.date, value: d[key] }));
+                svg.append("path")
+                    .datum(singleSeries)
+                    .attr("fill", colors[index])
+                    .attr("fill-opacity", 0.3)
+                    .attr("stroke", colors[index])
+                    .attr("stroke-width", 2)
+                    .attr("d", area);
+            });
+        }
+
+        // stacked area chart
+        function drawStackedArea() {
+            const svg = d3.select("#stacked-area-chart")
+                .append("svg")
+                .attr("viewBox", `0 0 ${width} ${height}`)
+                .attr("preserveAspectRatio", "xMidYMid meet")
+                .style("width", "100%")
+                .style("height", "100%")
+                .append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
+
+            const stack = d3.stack().keys(keys);
+            const stackedData = stack(data);
+
+            const x = d3.scaleTime()
+                .domain(d3.extent(data, d => d.date))
+                .range([0, innerWidth]);
+
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(stackedData, layer => d3.max(layer, d => d[1]))])
+                .range([innerHeight, 0]);
+
+            const xAxis = d3.axisBottom(x).ticks(6).tickSize(5).tickPadding(10);
+            const yAxis = d3.axisLeft(y).ticks(5).tickSize(5).tickPadding(10);
+
+            svg.append("g")
+                .attr("transform", `translate(0,${innerHeight})`)
+                .call(xAxis)
+                .call(g => g.select(".domain").attr("stroke", "var(--color-border)"))
+                .style("color", "var(--color-muted)");
+
+            svg.append("g")
+                .call(yAxis)
+                .call(g => g.select(".domain"))
+                .style("color", "var(--color-muted)");
+
+            const area = d3.area()
+                .x(d => x(d.data.date))
+                .y0(d => y(d[0]))
+                .y1(d => y(d[1]))
+                .curve(d3.curveMonotoneX);
+
+            svg.selectAll(".layer")
+                .data(stackedData)
+                .enter().append("path")
+                .attr("class", "layer")
+                .attr("d", area)
+                .attr("fill", (d, i) => colors[i])
+                .attr("fill-opacity", 0.9);
+        }
+
+        drawNormalArea();
+        drawStackedArea();
+    </script>
+</body>
+
+</html>
