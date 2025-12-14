@@ -1,8 +1,8 @@
 :root {
-  /* Brand (CanJet Red Triad 적용) */
-  --color-primary: #ed1c24;
-  --color-secondary: #f54748;
-  --color-accent: #f56f6c;
+  /* Brand (CanJet Red Triad) */
+  --color-primary: #ED1C24;
+  --color-secondary: #0056b3;
+  --color-accent: #f59e0b;
 
   /* Semantic */
   --color-success: #22c55e;
@@ -132,7 +132,7 @@ body {
   height: 12px;
   border-radius: 50%;
   background: var(--color-primary);
-  box-shadow: 0 0 0 4px rgba(237, 28, 36, 0.25);
+  box-shadow: 0 0 0 4px rgba(237, 28, 28, 0.25);
 }
 
 .site-title {
@@ -180,6 +180,22 @@ body {
 .ds-sidebar nav ul a:hover:not([aria-current="page"]) {
   background: var(--color-background);
   color: var(--color-primary);
+}
+
+/* =========================================
+   TYPOGRAPHY FOR CHARTS
+   ========================================= */
+
+.chart-container text, 
+.tick text,
+.chart-label {
+    font-family: "Georgia", "Times New Roman", Times, serif !important;
+    letter-spacing: 0.5px;
+}
+
+.legend-item, 
+.chart-legend {
+    font-family: "Georgia", "Times New Roman", Times, serif !important;
 }
 
 /* ===================================================
